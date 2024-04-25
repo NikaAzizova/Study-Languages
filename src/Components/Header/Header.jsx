@@ -1,12 +1,15 @@
-import Button from "../Button/Button"
+import Button from "../Button/Button.jsx";
+import styles from './Header.module.scss';
 
 export default function Header() {
     return (
-        <div>
-            <header className="block-header">
-            <Button name='Войти' />
-            </header>
-           
-        </div>
+
+        <header className={styles.header}>
+            <div className={styles.wrapper}>
+                 <Button name='Войти' /> 
+            </div>
+        </header>
+
+
     )
 }

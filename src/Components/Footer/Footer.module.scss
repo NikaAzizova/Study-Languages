@@ -1,0 +1,17 @@
+@import '../../styles/template.module.scss';
+
+.footer {
+
+    max-width: 100%;
+    width: 100%;
+    min-height: 50px;
+    background-color: $backgroundColorHeaderFooter;
+
+}
+
+.wrapper {
+    max-width: 100%;
+    padding: 20px 5% 20px 5%;
+    display: flex;
+    justify-content: space-between;
+}

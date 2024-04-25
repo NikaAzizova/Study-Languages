@@ -1,0 +1,46 @@
+@import '../../styles/template.module.scss';
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50vh;
+
+    .wrapper {
+        padding: 2vw;
+        width: 16vw;
+        height: 35vh;
+        margin-bottom: 40px;
+        border: 1.5px solid $cardColor;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .word {
+        padding-top: 10px;
+        margin-bottom: 20px;
+        display: block;
+        @include fontText;
+        font-weight: 500;
+        font-size: 2vw;
+        color: $cardColor;
+    }
+
+    .transcription {
+        display: block;
+        margin-bottom: 30px;
+        @include fontText;
+        font-weight: 500;
+        font-size: 1.5vw;
+        color: $cardColor;
+    }
+
+    .learnedAmount {
+        display: block;
+        margin-bottom: 30px;
+        @include fontText;
+        font-weight: 500;
+        font-size: 1.5vw;
+        color: $cardColor;
+    }
+}

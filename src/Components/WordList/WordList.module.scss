@@ -1,0 +1,41 @@
+@import '../../styles/template.module.scss';
+
+
+.wordList {
+    max-width: 80%;
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+    height: 7vh;
+
+    .wrapper {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        padding-top: 20px;
+
+
+        .input {
+            width: 20vw;
+            height: 5vh;
+            padding-left: 15px;
+            border: 2px solid $cardColor;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        .input::placeholder {
+            color: black;
+        }
+
+        .blockButtons {
+            display: flex;
+
+            .button {
+                //не реагирует на стили
+                display: block;
+
+            }
+        }
+    }
+}

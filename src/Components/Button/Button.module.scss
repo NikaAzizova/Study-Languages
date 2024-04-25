@@ -1,0 +1,23 @@
+@import '../../styles/template.module.scss';
+
+.button{
+   // width: 10vw;
+  //  height: 6vh;
+  
+  padding: 1vh 1vh 1vh 1vh;
+    background-color: $backgroundColorButton;
+    border: 1px solid $whiteColor;
+    border-radius: 10px;
+
+    //font-family: $fontFamilyButton;
+    @include fontText;
+    font-weight: 400;
+    font-size: 1.5vw;
+    color: $whiteColor;
+    cursor: pointer;
+   
+}
+
+.button:hover{
+    box-shadow: 0 7px 7px 0 rgb(137, 47, 133);
+}

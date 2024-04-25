@@ -1,0 +1,19 @@
+//imports of fonts
+@import url('https://fonts.googleapis.com/css2?family=Sedan&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
+//Colors
+$backgroundColorHeaderFooter: rgb(225, 113, 219);
+$whiteColor: white;
+$backgroundColorButton: rgb(206, 53, 198);
+$TextColor: rgb(125, 19, 120);
+$cardColor: rgb(206, 53, 198);
+
+//Fonts
+$fontFamilyButton: "Sedan", serif; //normal - 400
+$fontFamilyText: "Lora", serif; //normal/italic / weight с 400 по 700 
+
+@mixin fontText {
+    font-family: $fontFamilyText;
+    font-style: italic;
+}

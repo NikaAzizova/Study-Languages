@@ -1,16 +1,16 @@
 import Button from "../Button/Button"
+import styles from './Card.module.scss'
 
-export default function Card(props){
+export default function Card(){
     return(
-        <div>
-           <div className="block-card">
-            <div className="clock-card__wrapper">
-                <h3 className="block-card__word">{props.word}</h3>
-                <p className="block-card__transcription">{props.transcription}</p>
-                <Button name='Проверить'/>
-                <p>Выучено в этот раз:</p>
+    
+           <div className={styles.card}>
+            <div className={styles.wrapper}>
+                <p className={styles.word}>surface</p>
+                <p className={styles.transcription}>[ˈsɜː.fɪs]</p>
+                <Button name='Проверить'/>   
             </div>
-           </div>
+         <p className={styles.learnedAmount}>Выучено в этот раз: </p>
 
         </div>
     )
