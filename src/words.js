@@ -2,7 +2,7 @@ export const englishWords = [
     {
         word: 'hello',
         transcription: '[həˈləʊ]',
-        translation: 'привет',
+        translation: 'Привет',
         id: 1
 
 
@@ -10,57 +10,57 @@ export const englishWords = [
     {
         word: 'surface',
         transcription: '[ˈsɜː.fɪs]',
-        translation: 'поверхность',
+        translation: 'Поверхность',
         id: 2
     },
 
     {
         word: 'flower',
         transcription: '[flaʊər]',
-        translation: 'цветок',
+        translation: 'Цветок',
         id: 3
     },
 
     {
         word: 'city',
         transcription: '[ˈsɪt.i]',
-        translation: 'город',
+        translation: 'Город',
         id: 4
     },
     {
         word: 'remember',
         transcription: '[rɪˈmem.bər]',
-        translation: 'помнить',
+        translation: 'Помнить',
         id: 5
     },
     {
         word: 'beautiful',
         transcription: '[ˈbjuː.tɪ.fəl]',
-        translation: 'красивый',
+        translation: 'Красивый',
         id: 6
     },
     {
         word: 'world',
         transcription: '[wɜːld]',
-        translation: 'мир',
+        translation: 'Мир',
         id: 7
     },
     {
         word: 'island',
         transcription: '[ˈaɪ.lənd]',
-        translation: 'остров',
+        translation: 'Остров',
         id: 8
     },
     {
         word: 'interesting',
         transcription: '[ˈɪn.tres.tɪŋ]',
-        translation: 'интересный',
+        translation: 'Интересный',
         id: 9
     },
     {
         word: 'power',
         transcription: '[paʊər]',
-        translation: 'сила, власть',
+        translation: 'Сила, Власть',
         id: 10
     },
 ]

@@ -14,26 +14,39 @@
         border: 1.5px solid $cardColor;
         border-radius: 10px;
         text-align: center;
+
+        .word {
+            padding-top: 10px;
+            margin-bottom: 20px;
+            display: block;
+            @include fontText;
+            font-weight: 500;
+            font-size: 2vw;
+            color: $cardColor;
+        }
+    
+        .transcription {
+            display: block;
+            margin-bottom: 30px;
+            @include fontText;
+            font-weight: 500;
+            font-size: 1.5vw;
+            color: $cardColor;
+        }
+
+        .div{
+            display: block;
+           
+            .translationWord{
+                @include fontText;
+                font-weight: 500;
+                font-size: 1.5vw;
+                color: $TextColor;
+            }
+        }
     }
 
-    .word {
-        padding-top: 10px;
-        margin-bottom: 20px;
-        display: block;
-        @include fontText;
-        font-weight: 500;
-        font-size: 2vw;
-        color: $cardColor;
-    }
-
-    .transcription {
-        display: block;
-        margin-bottom: 30px;
-        @include fontText;
-        font-weight: 500;
-        font-size: 1.5vw;
-        color: $cardColor;
-    }
+    
 
     .learnedAmount {
         display: block;

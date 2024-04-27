@@ -6,9 +6,9 @@ export default function WordList(props) {
     return (
         <div className={styles.wordList}>
             <div className={styles.wrapper}>
-                <input className={styles.input} type="text" placeholder={word} />
-                <input className={styles.input} type="text" placeholder={transcription} />
-                <input className={styles.input} type="text" placeholder={translation} />
+                <div className={styles.input} type="text">{word} </div>
+                <div className={styles.input} type="text"> {transcription}</div>
+                <div className={styles.input} type="text">{translation} </div>
                 <div className={styles.blockButtons}></div>
                 <button className={styles.button}>редактировать</button>
                 <button className={styles.button}>удалить</button>
