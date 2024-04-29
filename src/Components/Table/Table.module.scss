@@ -1,0 +1,13 @@
+@import '../../styles/template.module.scss';
+
+.tr {
+    border: 1px solid rgb(5, 5, 5);
+
+    .td {
+        background-color: bisque;
+        border: 1px solid rgb(5, 5, 5);
+        text-align: left;
+        padding-left: 10px;
+        color: $colorTable;
+    }
+}

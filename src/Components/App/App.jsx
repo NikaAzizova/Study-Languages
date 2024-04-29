@@ -15,10 +15,10 @@ function App() {
         <Header />
         <Main />
         <Card />
-
-        {englishWords.map((item) => {
+<WordList/>
+       {/* {englishWords.map((item) => {
           return <WordList key={item.id} item={item} />
-        })}
+        })}*/}
 
       </div>
 

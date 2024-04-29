@@ -14,8 +14,30 @@
         gap: 5px;
         padding-top: 20px;
 
+        .tableWrapper {
+            margin-bottom: 30px;
 
-        .input {
+            .firstLine {
+                .table {
+                    color: black;
+                    border-collapse: collapse;
+
+                    .thead {
+                        .tr {
+                            .th {
+                                width: 150px;
+                                border: 1px solid rgb(5, 5, 5);
+                                background-color: rgb(176, 176, 170);
+                            }
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+        /*.input {
             width: 20vw;
             height: 5vh;
             padding-left: 15px;
@@ -36,6 +58,6 @@
                 display: block;
 
             }
-        }
+        }*/
     }
 }
