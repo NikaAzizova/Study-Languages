@@ -3,11 +3,31 @@
 .tr {
     border: 1px solid rgb(5, 5, 5);
 
+
     .td {
-        background-color: bisque;
+        width: 300px;
+        height: 50px;
+        background-color: $backgrounColorTable;
         border: 1px solid rgb(5, 5, 5);
-        text-align: left;
-        padding-left: 10px;
+        font-size: 15px;
+        text-align: center;
         color: $colorTable;
+
+        .editingImg,
+        .removeImg {
+            width: 30px;
+            margin-top: 2%;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .editingImg {
+            margin-right: 3%;
+        }
+
+        .editingImg:hover {
+            box-shadow: 2px 2px 4px $boxShadowEditing;
+            border-radius: 15px;
+        }
     }
 }

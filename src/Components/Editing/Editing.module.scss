@@ -1,11 +1,40 @@
+@import '../../styles/template.module.scss';
+
 .td {
-    background-color: rgb(226, 196, 155);
+    width: 300px;
+    height: 50px;
+    background-color: $backgroundColorEditing;
     text-align: center;
     border: 1px solid rgb(5, 5, 5);
 
-    .inputWord {
-        width: 120px;
-        margin: 3px;
 
+    .inputWord {
+        width: 200px;
+        height: 25px;
+        margin: 3px;
+        text-align: center;
+
+    }
+
+    .doneImg,
+    .removeImg {
+        width: 30px;
+        margin-top: 2%;
+        cursor: pointer;
+        // box-shadow: 2px 2px 4px greenyellow;
+    }
+
+    .doneImg {
+        margin-right: 3.1%;
+    }
+
+    .doneImg:hover {
+        box-shadow: 2px 2px 4px $boxShadowButtonImg;
+        border-radius: 15px;
+    }
+
+    .removeImg:hover {
+        box-shadow: 2px 2px 4px $boxShadowRemoveImg;
+        border-radius: 15px;
     }
 }
