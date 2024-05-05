@@ -1,40 +1,67 @@
 @import '../../styles/template.module.scss';
 
-.td {
-    width: 300px;
-    height: 50px;
-    background-color: $backgroundColorEditing;
+.title {
+    margin-bottom: 15px;
+    @include fontText;
+    font-weight: 500;
+    color: $TextColor;
+
+    font-size: 2vw;
     text-align: center;
-    border: 1px solid rgb(5, 5, 5);
+}
 
+.inputWord::placeholder {
+    font-family: $fontFamilyText;
+    font-weight: 500;
+    color: $colorTable;
 
-    .inputWord {
-        width: 200px;
-        height: 25px;
-        margin: 3px;
+}
+
+.tr {
+    max-width: 60%;
+    display: flex;
+    margin: 0 auto;
+    box-shadow: 3px 3px 3px 3px $boxShadowTable;
+    border-radius: 10px;
+
+    .td {
+        width: 300px;
+        height: 40px;
+        background-color: $backgroundColorEditing;
         text-align: center;
+        border: 1px solid $whiteColor;
+        border-radius: 10px;
 
-    }
 
-    .doneImg,
-    .removeImg {
-        width: 30px;
-        margin-top: 2%;
-        cursor: pointer;
-        // box-shadow: 2px 2px 4px greenyellow;
-    }
+        .inputWord {
+            width: 150px;
+            height: 20px;
+            margin: 3px;
+            margin-top: 8px;
+            text-align: center;
 
-    .doneImg {
-        margin-right: 3.1%;
-    }
+        }
 
-    .doneImg:hover {
-        box-shadow: 2px 2px 4px $boxShadowButtonImg;
-        border-radius: 15px;
-    }
+        .doneImg,
+        .removeImg {
+            width: 30px;
+            margin-top: 4px;
+            cursor: pointer;
 
-    .removeImg:hover {
-        box-shadow: 2px 2px 4px $boxShadowRemoveImg;
-        border-radius: 15px;
+        }
+
+        .doneImg {
+            margin-right: 3.1%;
+        }
+
+        .doneImg:hover {
+            box-shadow: 2px 2px 4px $boxShadowButtonImg;
+            border-radius: 15px;
+        }
+
+        .removeImg:hover {
+            box-shadow: 2px 2px 4px $boxShadowRemoveImg;
+            border-radius: 15px;
+        }
     }
 }
