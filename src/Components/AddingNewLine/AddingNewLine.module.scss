@@ -21,6 +21,7 @@
     max-width: 60%;
     display: flex;
     margin: 0 auto;
+    margin-bottom: 15px;
     box-shadow: 3px 3px 3px 3px $boxShadowTable;
     border-radius: 10px;
 
@@ -63,5 +64,18 @@
             box-shadow: 2px 2px 4px $boxShadowRemoveImg;
             border-radius: 15px;
         }
+    }
+}
+
+//Часть с выводом ошибки 
+.blockError{
+    max-width: 60%;
+    display: flex;
+    margin: 0 auto;
+    background-color: $backgroundError;
+    border-radius: 7px;
+    .error{
+        padding: 5px 5px 5px 5px;
+        color: $ColorErrorText;
     }
 }

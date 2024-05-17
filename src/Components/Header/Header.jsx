@@ -6,7 +6,7 @@ export default function Header() {
 
         <header className={styles.header}>
             <div className={styles.wrapper}>
-                 <Button name='Войти' /> 
+                 <Button>Войти</Button> 
             </div>
         </header>
 

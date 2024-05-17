@@ -1,46 +1,66 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from '../Header/Header.jsx'
 import Main from '../Main/Main.jsx'
 import Footer from '../Footer/Footer.jsx'
-import Card from '../Card/Card.jsx'
 import styles from './App.module.scss'
 import { englishWords } from '../../words.js';
 import Table from '../Table/Table.jsx'
-import Editing from '../Editing/Editing.jsx'
+import AddingNewLine from '../AddingNewLine/AddingNewLine.jsx'
+import Slider from "../Slider/Slider.jsx";
 
 
 function App() {
-  const [wordDictionary, setWordDictionary] = useState(englishWords); //отправляем js файл со словами в состояние
+  
+  //отправим слова в localSrorage
+  const JsonStringyfyWords = JSON.stringify(englishWords)
+  localStorage.setItem('wordsItem', JsonStringyfyWords);
+  //получим слова из localStorage
+  const wordsFromLocalStorage = JSON.parse(localStorage.getItem('wordsItem'));
 
 
-  //создаем стрелочную функцию по удалению строчек при клике на крестик
+  const [wordDictionary, setWordDictionary] = useState(wordsFromLocalStorage); //отправляем слова в состояние
+  const [rowToEdit, setRowToEdit] = useState(null);
+  const [editID, setEditID] = useState(-1);//в состояние получаем ID слова, по умолчанию стоят -1
+  
+  {/*
+const [wordDictionary, setWordDictionary] = useState([]);
+console.log(wordDictionary);
+useEffect(()=>{
+setWordDictionary(JSON.parse(localStorage.getItem('wordsItem')));
+},[]);
+*/}
+
+  //отправляем слова в Slider
+  const stateWords = { wordDictionary, setWordDictionary };
+
+
+  //создаем стрелочную функцию по удалению строчек из состояния wordDictionary со словами при клике на крестик
   const handleDeleteRow = (targetIndex) => {
-    setWordDictionary(wordDictionary.filter((_, id) => id !== targetIndex))
+    setWordDictionary(wordDictionary.filter((_, idx) => idx !== targetIndex))
 
   }
 
-  const [openEditing, setOpenEditing] = useState(false);
-  const openEditingWindow = () => {
-    setOpenEditing(true)
+  const handleEditRow = (idx) => {
+    setEditID(idx); //помещаем index слова
   }
 
-  const [editRow, setEditRow] = useState(null);
-
-  const handleEditRow = (id) => {
-    setEditRow(id);
-    setOpenEditing(true)
+  const handleNewWordsLine = (newRow) => { //сюда придут новые слова, и уйдут в состояние wordDictionary со всеми словами
+    setWordDictionary([...wordDictionary, newRow])
   }
 
+  //создадим функцию чтобы при клике сделать setID обратно с прежним значением -1, и закрыть редактирование с инпутами
+  const closeEditingWindow = () => {
+    setEditID(-1);
+  }
   return (
     <>
       <div className={styles.container}>
+
         <Header />
         <Main />
-        <Card />
-        {openEditing && <Editing defaultValue={editRow !== null && wordDictionary[editRow]} />}
-
-        <Table wordDictionary={wordDictionary} deleteRow={handleDeleteRow} openEdit={handleEditRow} />
-
+        <Slider stateWords={stateWords} />
+        <AddingNewLine handleNewRow={handleNewWordsLine} />
+        <Table wordDictionary={wordDictionary} stateWordDictionary={setWordDictionary} deleteRow={handleDeleteRow} openEdit={handleEditRow} setID={editID} closeEditingWindow={closeEditingWindow} />
 
       </div>
 
