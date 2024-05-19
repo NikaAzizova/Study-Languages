@@ -19,39 +19,11 @@ function App() {
 
 
   const [wordDictionary, setWordDictionary] = useState(wordsFromLocalStorage); //отправляем слова в состояние
-  const [rowToEdit, setRowToEdit] = useState(null);
-  const [editID, setEditID] = useState(-1);//в состояние получаем ID слова, по умолчанию стоят -1
-  
-  {/*
-const [wordDictionary, setWordDictionary] = useState([]);
-console.log(wordDictionary);
-useEffect(()=>{
-setWordDictionary(JSON.parse(localStorage.getItem('wordsItem')));
-},[]);
-*/}
-
+ 
+ 
   //отправляем слова в Slider
   const stateWords = { wordDictionary, setWordDictionary };
 
-
-  //создаем стрелочную функцию по удалению строчек из состояния wordDictionary со словами при клике на крестик
-  const handleDeleteRow = (targetIndex) => {
-    setWordDictionary(wordDictionary.filter((_, idx) => idx !== targetIndex))
-
-  }
-
-  const handleEditRow = (idx) => {
-    setEditID(idx); //помещаем index слова
-  }
-
-  const handleNewWordsLine = (newRow) => { //сюда придут новые слова, и уйдут в состояние wordDictionary со всеми словами
-    setWordDictionary([...wordDictionary, newRow])
-  }
-
-  //создадим функцию чтобы при клике сделать setID обратно с прежним значением -1, и закрыть редактирование с инпутами
-  const closeEditingWindow = () => {
-    setEditID(-1);
-  }
   return (
     <>
       <div className={styles.container}>
@@ -59,8 +31,8 @@ setWordDictionary(JSON.parse(localStorage.getItem('wordsItem')));
         <Header />
         <Main />
         <Slider stateWords={stateWords} />
-        <AddingNewLine handleNewRow={handleNewWordsLine} />
-        <Table wordDictionary={wordDictionary} stateWordDictionary={setWordDictionary} deleteRow={handleDeleteRow} openEdit={handleEditRow} setID={editID} closeEditingWindow={closeEditingWindow} />
+        <AddingNewLine wordDictionary={wordDictionary} setWordDictionary={setWordDictionary} />
+        <Table wordDictionary={wordDictionary} setWordDictionary={setWordDictionary} />
 
       </div>
 

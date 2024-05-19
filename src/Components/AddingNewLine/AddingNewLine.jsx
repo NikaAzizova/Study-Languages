@@ -3,7 +3,7 @@ import styles from './AddingNewLine.module.scss';
 import done from '../../assets/done.png';
 
 
-export default function AddingNewLine({ handleNewRow }) {
+export default function AddingNewLine({wordDictionary,setWordDictionary ,handleNewRow }) {
   
     const [errors, setErrors]=useState(""); 
     const [formState, setFormState] = useState({
@@ -17,8 +17,10 @@ export default function AddingNewLine({ handleNewRow }) {
             ...formState,
             [e.target.name]: e.target.value,
         });  
-        reset();   
+          
     };
+
+   
 
     const addNewRow = () => { // добавляем новый ряд слов
         if(!formState.word && !formState.transcription && !formState.translation){ //если слов нет, то они не добавятся в новую строку  
@@ -32,11 +34,17 @@ export default function AddingNewLine({ handleNewRow }) {
             return;
         } else{
             setErrors("");
-            handleNewRow(formState);//отправляем состояние с новыми словами в App.jsx в функцию handleNewWordsLine
+           // handleNewRow(formState);//отправляем состояние с новыми словами в App.jsx в функцию handleNewWordsLine
+
+            handleNewWordsLine(formState)
         }
          
     };
 
+    const handleNewWordsLine = (newRow) => { //сюда придут новые слова, и уйдут в состояние wordDictionary со всеми словами
+        setWordDictionary([...wordDictionary, newRow])
+      }
+   
 
     return (
         <> 
