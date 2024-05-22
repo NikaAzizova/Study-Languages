@@ -1,0 +1,42 @@
+@import '../../styles/template.module';
+
+.container {
+    min-height: 74.5vh;
+    max-width: 100%;
+    background: rgb(119, 134, 242);
+    background: linear-gradient(90deg, rgba(119, 134, 242, 0.9277836134453782) 9%, rgba(217, 29, 241, 1) 50%, rgba(183, 0, 255, 1) 100%);
+
+    .wrapper {
+
+        max-width: 70%;
+        min-height: 74.5vh;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .number {
+            font-family: $fontFamilyText;
+            font-weight: 500;
+            font-size: 110px;
+            text-align: center;
+        }
+
+        .text {
+            font-family: $fontFamilyText;
+            font-weight: 500;
+            font-size: 80px;
+            text-align: center;
+        }
+
+        .secondText {
+            max-width: 50%;
+            margin: 0 auto;
+            text-align: center;
+            font-family: $fontFamilyText;
+            font-weight: 600;
+            font-size: 20px;
+        }
+    }
+}

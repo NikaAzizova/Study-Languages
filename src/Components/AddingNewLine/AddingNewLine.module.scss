@@ -35,7 +35,7 @@
 
 
         .inputWord {
-            width: 150px;
+            width: 70%;
             height: 20px;
             margin: 3px;
             margin-top: 8px;
@@ -71,6 +71,7 @@
 .blockError{
     max-width: 60%;
     display: flex;
+    justify-content: center;
     margin: 0 auto;
     background-color: $backgroundError;
     border-radius: 7px;

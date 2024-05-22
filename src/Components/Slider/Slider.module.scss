@@ -2,7 +2,8 @@
 
 .slider {
     color: rgb(16, 76, 76);
-
+    min-height: 74.5vh;
+   
     .sliderContainer {
         display: flex;
         justify-content: center;
@@ -12,12 +13,12 @@
             margin-right: 10px;
             height: 240px;
             align-content: center;
-            
+
 
             .arrowLeftImg {
                 width: 30px;
                 cursor: pointer;
-                
+
             }
         }
 
@@ -26,24 +27,25 @@
             margin-left: 10px;
             height: 240px;
             align-content: center;
-          
+
 
             .arrowRightImg {
                 width: 30px;
                 cursor: pointer;
-                
+
             }
         }
     }
 
-    .amount{
+    .amount {
         text-align: center;
-        .wordAmount{
+
+        .wordAmount {
             @include fontText;
             font-weight: 500;
             font-size: 1.5vw;
             color: $cardColor;
         }
-      }
-   
+    }
+
 }

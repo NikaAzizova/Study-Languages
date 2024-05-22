@@ -3,30 +3,31 @@ import styles from './Table.module.scss'
 import pencil from '../../assets/pencil.png'
 import remove from '../../assets/remove.png'
 import done from '../../assets/done.png';
+import AddingNewLine from '../AddingNewLine/AddingNewLine.jsx'
 
 
-
-export default function Table({ wordDictionary, setWordDictionary /*deleteRow, openEdit, setID, closeEditingWindow*/ }) {
-
+export default function Table({wordDictionary,setWordDictionary}) {
+    
     const [editID, setEditID] = useState(-1);//в состояние получаем ID слова, по умолчанию стоят -1
 
     const openEditingWindow = (idx) => {
         setEditID(idx); //помещаем index слова
-      }
+    }
 
-       //создадим функцию чтобы при клике сделать setID обратно с прежним значением -1, и закрыть редактирование с инпутами
-  const closeEditingWindow = () => {
-    setEditID(-1);
-  }
+    //создадим функцию чтобы при клике сделать setID обратно с прежним значением -1, и закрыть редактирование с инпутами
+    const closeEditingWindow = () => {
+        setEditID(-1);
+    }
 
-  //создаем стрелочную функцию по удалению строчек из состояния wordDictionary со словами при клике на крестик
-  const handleDeleteRow = (targetIndex) => {
-    setWordDictionary(wordDictionary.filter((_, idx) => idx !== targetIndex))
+    //создаем стрелочную функцию по удалению строчек из состояния wordDictionary со словами при клике на крестик
+    const handleDeleteRow = (targetIndex) => {
+        setWordDictionary(wordDictionary.filter((_, idx) => idx !== targetIndex))
 
-  }
+    }
 
     return (
-        <div>
+        <div className={styles.container}>
+        <AddingNewLine wordDictionary={wordDictionary} setWordDictionary={setWordDictionary} />
             <div className={styles.wordList}>
                 <div className={styles.wrapper}>
                     {/* начало таблицы */}
@@ -44,15 +45,15 @@ export default function Table({ wordDictionary, setWordDictionary /*deleteRow, o
                                 </thead>
                                 <tbody>
                                     {wordDictionary.map((item, idx) => {
-                                        {/*Ниже пишем условный рендеринг чтобы открыть вкладку редактирования, либо закрыть ее*/}
+                                        {/*Ниже пишем условный рендеринг чтобы открыть вкладку редактирования, либо закрыть ее*/ }
                                         return (
                                             idx === editID /*setID*/ ?
                                                 <tr key={idx} className={styles.tr}>
-                                                    <td className={styles.td}><input className={styles.inputEditWord} name="word"  type="text"  placeholder={item.word} /></td>
-                                                    <td className={styles.td}><input className={styles.inputEditWord} name="transcription"  type="text"  placeholder={item.transcription}  /></td>
-                                                    <td className={styles.td}><input className={styles.inputEditWord} name="translation"  type="text"  placeholder={item.translation} /></td>
+                                                    <td className={styles.td}><input className={styles.inputEditWord} name="word" type="text" placeholder={item.word} /></td>
+                                                    <td className={styles.td}><input className={styles.inputEditWord} name="transcription" type="text" placeholder={item.transcription} /></td>
+                                                    <td className={styles.td}><input className={styles.inputEditWord} name="translation" type="text" placeholder={item.translation} /></td>
                                                     <td className={styles.td}>
-                                                        <img className={styles.doneImg} src={done} alt="enter"/>
+                                                        <img className={styles.doneImg} src={done} alt="enter" />
                                                         <img onClick={closeEditingWindow} className={styles.removeImg} src={remove} alt="remove" />
                                                     </td>
                                                 </tr> :

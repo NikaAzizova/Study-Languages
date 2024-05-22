@@ -1,46 +1,50 @@
 @import '../../styles/template.module';
 
 //стили для заголовка таблицы
-.wordList {
-    max-width: 60%;
-    width: 100%;
-    margin: 0 auto;
-    display: block;
+.container {
+        min-height: 74.5vh;
+
+    .wordList {
+        max-width: 60%;
+        width: 100%;
+        margin: 0 auto;
+        display: block;
 
 
-    .wrapper {
-        display: flex;
-        justify-content: center;
-        gap: 5px;
-        padding-top: 20px;
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            padding-top: 20px;
 
-        .tableWrapper {
-            margin-bottom: 30px;
-            box-shadow: 5px 5px 5px 5px $boxShadowTable;
-            border-radius: 10px;
+            .tableWrapper {
+                margin-bottom: 30px;
+                box-shadow: 5px 5px 5px 5px $boxShadowTable;
+                border-radius: 10px;
 
-            .firstLine {
-                .table {
-                    color: $TextColor;
-                    border-collapse: separate;
+                .firstLine {
+                    .table {
+                        color: $TextColor;
+                        border-collapse: separate;
 
 
-                    .thead {
-                        .tr {
-                            .th {
-                                width: 300px;
-                                height: 30px;
-                                border-radius: 10px;
-                                background-color: $backgroundColorHeaderTable;
-                                font-size: 20px;
-                                font-family: $fontFamilyText;
-                                font-weight: 600;
+                        .thead {
+                            .tr {
+                                .th {
+                                    width: 300px;
+                                    height: 30px;
+                                    border-radius: 10px;
+                                    background-color: $backgroundColorHeaderTable;
+                                    font-size: 20px;
+                                    font-family: $fontFamilyText;
+                                    font-weight: 600;
+                                }
                             }
                         }
+
                     }
 
                 }
-
             }
         }
     }
@@ -78,14 +82,14 @@
             margin-top: 4px;
             margin-right: 3.1%;
             cursor: pointer;
-    
+
         }
-    
+
         .doneImg:hover {
             box-shadow: 2px 2px 4px $boxShadowButtonImg;
             border-radius: 15px;
         }
-    
+
         .editingImg,
         .removeImg {
             width: 30px;
@@ -102,17 +106,10 @@
             box-shadow: 2px 2px 4px $boxShadowEditing;
             border-radius: 20px;
         }
-        .removeImg:hover{
+
+        .removeImg:hover {
             box-shadow: 2px 2px 4px $boxShadowRemoveImg;
             border-radius: 20px;
         }
     }
 }
-
-
-
-
-    
-
-
-

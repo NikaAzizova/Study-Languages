@@ -1,11 +1,13 @@
 @import '../../styles/template.module.scss';
 
 .card {
+    padding-top: 40px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 50vh;
-
+    
     .wrapper {
         padding: 2vw;
         width: 16vw;

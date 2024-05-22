@@ -50,9 +50,9 @@ export default function AddingNewLine({wordDictionary,setWordDictionary ,handleN
         <> 
         <h3 className={styles.title}>Добавить новое слово</h3>
             <div className={styles.tr}>
-                <div className={styles.td}><input className={styles.inputWord} type='text' onChange={handleChange} name='word' value={formState.word}  placeholder='слово' /></div>
-                <div className={styles.td}><input className={styles.inputWord} type='text' onChange={handleChange} name='transcription' value={formState.transcription}  placeholder='транскрипция' /></div>
-                <div className={styles.td}><input className={styles.inputWord} type='text' onChange={handleChange} name='translation' value={formState.translation} placeholder='перевод' /></div>
+                <div className={styles.td}><input className={styles.inputWord} type='text' onChange={handleChange} name='word' value={formState.word}  placeholder='word' /></div>
+                <div className={styles.td}><input className={styles.inputWord} type='text' onChange={handleChange} name='transcription' value={formState.transcription}  placeholder='transcription' /></div>
+                <div className={styles.td}><input className={styles.inputWord} type='text' onChange={handleChange} name='translation' value={formState.translation} placeholder='translation' /></div>
                 <div className={styles.td}><img onClick={addNewRow} className={styles.doneImg} src={done} alt="enter" /></div>
               
             </div>

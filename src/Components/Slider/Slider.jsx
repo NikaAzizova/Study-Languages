@@ -8,27 +8,28 @@ export default function Slider({ stateWords }) {
 
     const [countSlider, setCountSlider] = useState(0);
     const wordItem = stateWords;//записываем состояние stateWords в переменную чтобы получить последний индекс обьекта
-
+    const [showWord, setShowWord] = useState(false);// состояние для отрисовки перевода слова, и количества выученных слов, если кликнули на кнопку "проверить", если нет то по умолчанию стоит кнопка и число 0
     //стрелочная функция при помощи которой переключаем слова при клике на стрелочку назад
 
     const prevSlider = () => {
-        setCountSlider(prevState => prevState - 1);
-        //прописываем условие, что если countSlider <= 0 то слова начинаются с последнего слова с конца
-        if (countSlider <= 0) {
-            setCountSlider(prevState => prevState + wordItem.wordDictionary.length)
-        }
+        setShowWord(false);
+        setCountSlider((prevState) => {
+            const newCount = prevState <= 0 ? wordItem.wordDictionary.length - 1 : prevState - 1;
+            console.log();
+            return newCount;
+        })
     }
 
     //стрелочная функция при помощи которой переключаем слова при клике на стрелочку вперед
     const nextSlider = () => {
-        setCountSlider(prevState => prevState + 1);
-
+        setShowWord(false);
+        setCountSlider((prevState) => {
+            const newCount = prevState >= wordItem.wordDictionary.length - 1 ? 0 : prevState + 1;
+            console.log(newCount);
+            return newCount;
+        })
     }
-    //прописываем условие, что если countSlider >= 10 то слова начинаются с первого слова с самого начала. (P.s.: условие не работает в функции nextSlider(), поэтому вынесла наружу функции)
 
-    if (countSlider >= 10) {
-        setCountSlider(prevState => prevState - wordItem.wordDictionary.length)
-    } 
 
 
     return (
@@ -39,7 +40,7 @@ export default function Slider({ stateWords }) {
                     <img onClick={prevSlider} className={styles.arrowLeftImg} src={arrowLeft} alt="стрелка влево" />
                 </div>
                 {/* сам компонент карточки*/}
-                <Card words={stateWords.wordDictionary[countSlider]}/>
+                <Card words={stateWords.wordDictionary[countSlider]} showWord={showWord} setShowWord={setShowWord} />
                 {/* изображение стрелочки вправо*/}
                 <div className={styles.arrowRight}>
                     <img onClick={nextSlider} className={styles.arrowRightImg} src={arrowRight} alt="стрелка в право" />
