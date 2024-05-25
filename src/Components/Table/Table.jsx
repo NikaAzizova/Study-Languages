@@ -21,7 +21,7 @@ export default function Table({wordDictionary,setWordDictionary}) {
 
     //создаем стрелочную функцию по удалению строчек из состояния wordDictionary со словами при клике на крестик
     const handleDeleteRow = (targetIndex) => {
-        setWordDictionary(wordDictionary.filter((_, idx) => idx !== targetIndex))
+       const updatedList = setWordDictionary(wordDictionary.filter((_, idx) => idx !== targetIndex))
 
     }
 

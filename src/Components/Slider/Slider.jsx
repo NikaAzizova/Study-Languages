@@ -1,18 +1,18 @@
 import Card from "../Card/Card"
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import arrowLeft from '../../assets/arrowLeft.png'
 import arrowRight from '../../assets/arrowRight.png'
 import styles from './Slider.module.scss'
 
 export default function Slider({ stateWords }) {
-
+  
     const [countSlider, setCountSlider] = useState(0);
     const wordItem = stateWords;//записываем состояние stateWords в переменную чтобы получить последний индекс обьекта
     const [showWord, setShowWord] = useState(false);// состояние для отрисовки перевода слова, и количества выученных слов, если кликнули на кнопку "проверить", если нет то по умолчанию стоит кнопка и число 0
+    
     //стрелочная функция при помощи которой переключаем слова при клике на стрелочку назад
-
     const prevSlider = () => {
-        setShowWord(false);
+       
         setCountSlider((prevState) => {
             const newCount = prevState <= 0 ? wordItem.wordDictionary.length - 1 : prevState - 1;
             console.log();
@@ -22,7 +22,7 @@ export default function Slider({ stateWords }) {
 
     //стрелочная функция при помощи которой переключаем слова при клике на стрелочку вперед
     const nextSlider = () => {
-        setShowWord(false);
+      
         setCountSlider((prevState) => {
             const newCount = prevState >= wordItem.wordDictionary.length - 1 ? 0 : prevState + 1;
             console.log(newCount);
