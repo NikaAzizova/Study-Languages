@@ -2,7 +2,7 @@
 
 //стили для заголовка таблицы
 .container {
-        min-height: 74.5vh;
+    min-height: 74.5vh;
 
     .wordList {
         max-width: 60%;
@@ -66,7 +66,7 @@
         text-align: center;
         color: $colorTable;
 
-        .inputEditWord {
+        .inputWord {
             width: 150px;
             height: 20px;
             margin: 3px;
@@ -80,36 +80,37 @@
         .doneImg {
             width: 30px;
             margin-top: 4px;
-            margin-right: 3.1%;
+            font-size: 20px;
+            color: rgb(42, 159, 19);
             cursor: pointer;
 
-        }
-
-        .doneImg:hover {
-            box-shadow: 2px 2px 4px $boxShadowButtonImg;
-            border-radius: 15px;
         }
 
         .editingImg,
         .removeImg {
             width: 30px;
-            margin-top: 2%;
+            padding-top: 3px;
             cursor: pointer;
-            text-align: center;
+
         }
 
         .editingImg {
-            margin-right: 3%;
+            font-size: 20px;
+            color: $EditingImgColor;
         }
 
         .editingImg:hover {
-            box-shadow: 2px 2px 4px $boxShadowEditing;
-            border-radius: 20px;
+            color: $EditingColorHover;
+        }
+
+        .removeImg {
+            font-size: 20px;
+            color: $RemoveImgColor;
         }
 
         .removeImg:hover {
-            box-shadow: 2px 2px 4px $boxShadowRemoveImg;
-            border-radius: 20px;
+           cursor: pointer;
+           color: $RemoveImgColorHover;
         }
     }
 }

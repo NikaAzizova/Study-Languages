@@ -9,15 +9,24 @@ $backgroundColorButton: rgb(206, 53, 198);
 $TextColor: rgb(125, 19, 120);
 $cardColor: rgb(206, 53, 198);
 $colorTable: rgb(124, 126, 122);
-$boxShadowButtonImg: greenyellow;
-$boxShadowRemoveImg: rgb(243, 57, 225);
-$boxShadowEditing: rgb(82, 218, 236);
 $backgroundColorEditing: rgb(233, 183, 230);
 $backgrounColorTable: rgb(233, 183, 230);
 $backgroundColorHeaderTable: rgb(235, 213, 236);
 $boxShadowTable: rgb(222, 48, 217);
 $backgroundError: #f8d7da;
 $ColorErrorText: #df4759;
+$EditingImgColor: rgba(183, 17, 177, 0.842);
+$EditingColorHover: red;
+$RemoveImgColor: rgb(88, 86, 86);
+$RemoveImgColorHover: black;
+$BtnAddWordBackColor: rgba(183, 17, 177, 0.842);
+$grey: grey;
+$darkGrey: rgb(62, 63, 61);
+$black: black;
+$BtnDisabledBackgColor: rgb(167, 164, 167);
+$BtnSaveBackg: rgb(214, 54, 212);
+$BtnSaveHover: rgba(239, 38, 165, 0.765);
+$BtnSaveHoverBoxShadow: rgb(150, 7, 97);
 //Fonts
 $fontFamilyButton: "Sedan", serif; //normal - 400
 $fontFamilyText: "Lora", serif; //normal/italic / weight с 400 по 700 

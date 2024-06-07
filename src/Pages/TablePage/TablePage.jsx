@@ -5,7 +5,7 @@ export default function TablePage(props){
     const setWordDictionary = props.setWordDictionary;
     return(
         <div>
-            <Table wordDictionary={wordDictionary} setWordDictionary={setWordDictionary}/>
+            <Table wordDictionary={wordDictionary} setWordDictionary={setWordDictionary} />
         </div>
     )
 }

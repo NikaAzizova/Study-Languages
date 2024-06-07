@@ -20,6 +20,8 @@ function App() {
   //отправляем слова в Slider
   const stateWords = { wordDictionary, setWordDictionary };
 
+ 
+
   return (
     <>
       <div className={styles.container}>

@@ -1,40 +1,41 @@
-import { useState } from "react";
 import styles from './Table.module.scss'
-import pencil from '../../assets/pencil.png'
-import remove from '../../assets/remove.png'
-import done from '../../assets/done.png';
 import AddingNewLine from '../AddingNewLine/AddingNewLine.jsx'
+import Row from "../Row/Row.jsx";
 
 
-export default function Table({wordDictionary,setWordDictionary}) {
-    
-    const [editID, setEditID] = useState(-1);//в состояние получаем ID слова, по умолчанию стоят -1
+export default function Table({ wordDictionary, setWordDictionary }) {
 
-    const openEditingWindow = (idx) => {
-        setEditID(idx); //помещаем index слова
+    //сохраняем отредактированные слова
+    function handleSave({ id, wordSt, transcriptionWord, translationWord }) {
+
+        const newDataWords = wordDictionary.map((item) => {
+            if (item.id == id) {
+                item.word = wordSt;
+                item.transcription = transcriptionWord;
+                item.translation = translationWord;
+                return item;
+            }
+            return item;
+        })
+        setWordDictionary(newDataWords);
+    }
+    //Удаляем строку со словами
+    const handleRemove = (id) => {
+        setWordDictionary((prevWords) =>
+            prevWords.filter((word) => word.id !== id)
+        )
     }
 
-    //создадим функцию чтобы при клике сделать setID обратно с прежним значением -1, и закрыть редактирование с инпутами
-    const closeEditingWindow = () => {
-        setEditID(-1);
-    }
-
-    //создаем стрелочную функцию по удалению строчек из состояния wordDictionary со словами при клике на крестик
-    const handleDeleteRow = (targetIndex) => {
-       const updatedList = setWordDictionary(wordDictionary.filter((_, idx) => idx !== targetIndex))
-
-    }
 
     return (
         <div className={styles.container}>
-        <AddingNewLine wordDictionary={wordDictionary} setWordDictionary={setWordDictionary} />
+            <AddingNewLine wordDictionary={wordDictionary} setWordDictionary={setWordDictionary} />
             <div className={styles.wordList}>
                 <div className={styles.wrapper}>
                     {/* начало таблицы */}
                     <div className={styles.tableWrapper}>
                         <div className={styles.firstLine}>
                             <table className={styles.table}>
-
                                 <thead className={styles.thead}>
                                     <tr className={styles.tr}>
                                         <th className={styles.th}>Word</th>
@@ -44,30 +45,8 @@ export default function Table({wordDictionary,setWordDictionary}) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {wordDictionary.map((item, idx) => {
-                                        {/*Ниже пишем условный рендеринг чтобы открыть вкладку редактирования, либо закрыть ее*/ }
-                                        return (
-                                            idx === editID /*setID*/ ?
-                                                <tr key={idx} className={styles.tr}>
-                                                    <td className={styles.td}><input className={styles.inputEditWord} name="word" type="text" placeholder={item.word} /></td>
-                                                    <td className={styles.td}><input className={styles.inputEditWord} name="transcription" type="text" placeholder={item.transcription} /></td>
-                                                    <td className={styles.td}><input className={styles.inputEditWord} name="translation" type="text" placeholder={item.translation} /></td>
-                                                    <td className={styles.td}>
-                                                        <img className={styles.doneImg} src={done} alt="enter" />
-                                                        <img onClick={closeEditingWindow} className={styles.removeImg} src={remove} alt="remove" />
-                                                    </td>
-                                                </tr> :
-                                                <tr key={idx} className={styles.tr}>
-                                                    <td className={styles.td}>{item.word}</td>
-                                                    <td className={styles.td}>{item.transcription}</td>
-                                                    <td className={styles.td}>{item.translation}</td>
-                                                    <td className={styles.td}>
-                                                        <img onClick={() => openEditingWindow(idx)} className={styles.editingImg} src={pencil} alt="editing" />
-                                                        <img onClick={() => handleDeleteRow(idx)} className={styles.removeImg} src={remove} alt="remove" />
-                                                    </td>
-                                                </tr>
-
-                                        )
+                                    {wordDictionary.map((item) => {
+                                        return <Row wordDictionary={item} key={item.id} handleSave={handleSave} handleRemove={handleRemove} />;
                                     })}
                                 </tbody>
                             </table>
@@ -77,4 +56,5 @@ export default function Table({wordDictionary,setWordDictionary}) {
             </div>
         </div>
     )
+
 }

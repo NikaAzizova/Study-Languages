@@ -41,41 +41,69 @@
             margin-top: 8px;
             text-align: center;
 
-        }
-
-        .doneImg,
-        .removeImg {
-            width: 30px;
-            margin-top: 4px;
-            cursor: pointer;
 
         }
 
-        .doneImg {
-            margin-right: 3.1%;
+        .inputWordError {
+            width: 70%;
+            height: 20px;
+            margin: 3px;
+            margin-top: 8px;
+            text-align: center;
+            //background-color: rgb(242, 65, 65);
+            border: 2px solid red;
+
         }
 
-        .doneImg:hover {
-            box-shadow: 2px 2px 4px $boxShadowButtonImg;
-            border-radius: 15px;
+        .btn {
+            margin-top: 6px;
+            width: 40px;
+            height: 25px;
+            padding: 0 7px 0 7px;
+            border: none;
+            border-radius: 5px;
+            background-color: $BtnAddWordBackColor;
+
+            .doneImg {
+                margin-top: 2px;
+                font-size: 20px;
+                color: $black;
+            }
         }
 
-        .removeImg:hover {
-            box-shadow: 2px 2px 4px $boxShadowRemoveImg;
-            border-radius: 15px;
+        .btnDisabled {
+            width: 40px;
+            height: 25px;
+            margin-top: 6px;
+            padding: 0 7px 0 7px;
+            border: none;
+            border-radius: 5px;
+            background-color: $BtnDisabledBackgColor;
+            box-shadow: 5px 0 5px 0 $grey;
+
+            .doneImg {
+                margin-top: 2px;
+                font-size: 20px;
+                color: $black;
+            }
+        }
+
+        .btn:hover {
+            background-color: rgba(239, 38, 165, 0.765);
+            box-shadow: 5px 0 5px 0 rgb(150, 7, 97);
         }
     }
 }
 
 //Часть с выводом ошибки 
-.blockError{
-    max-width: 60%;
+.blockError {
+    max-width: 80%;
     display: flex;
     justify-content: center;
     margin: 0 auto;
-    background-color: $backgroundError;
     border-radius: 7px;
-    .error{
+
+    .error {
         padding: 5px 5px 5px 5px;
         color: $ColorErrorText;
     }
