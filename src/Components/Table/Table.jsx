@@ -1,35 +1,47 @@
-import styles from './Table.module.scss'
+import { useContext } from 'react';
+import { DataContext } from '../../Context/Context.jsx'
+import JSONServices from '../../Services/JSONServices.js';
 import AddingNewLine from '../AddingNewLine/AddingNewLine.jsx'
 import Row from "../Row/Row.jsx";
+import styles from './Table.module.scss'
 
+export default function Table() {
 
-export default function Table({ wordDictionary, setWordDictionary }) {
-
+    //получаем данные из Context
+    const { data, setData } = useContext(DataContext);
+    const { updServ, setUpdServ } = useContext(DataContext);
+    //если список слов есть, то получаем последний id из списка слов и увеличиваем на единицу, если список пустой то начинаем с 1
+    const dataId =data? data[data.length - 1].id + 1 : 1;
+   
     //сохраняем отредактированные слова
-    function handleSave({ id, wordSt, transcriptionWord, translationWord }) {
+    async function handleSave({ id, wordSt, transcriptionWord, translationWord }) {
 
-        const newDataWords = wordDictionary.map((item) => {
-            if (item.id == id) {
-                item.word = wordSt;
-                item.transcription = transcriptionWord;
-                item.translation = translationWord;
-                return item;
-            }
-            return item;
-        })
-        setWordDictionary(newDataWords);
+        //записываем отредактированные слова в объект
+        const obj={
+            id: dataId,
+            english: wordSt,
+            russian: translationWord,
+            transcription: transcriptionWord,
+            tags:'',
+            tags_json:"",
+            
+        }
+
+        //передаем объект слов и id на сервер
+        await JSONServices.changeData(obj, id);
+        setUpdServ(!updServ); //рендерит страницу
+
     }
-    //Удаляем строку со словами
-    const handleRemove = (id) => {
-        setWordDictionary((prevWords) =>
-            prevWords.filter((word) => word.id !== id)
-        )
+    //Удаляем строку со словами на сервере
+    async function handleRemove(id) {
+        await JSONServices.deleteData(id)
+        setUpdServ(!updServ);
     }
 
 
     return (
         <div className={styles.container}>
-            <AddingNewLine wordDictionary={wordDictionary} setWordDictionary={setWordDictionary} />
+            <AddingNewLine />
             <div className={styles.wordList}>
                 <div className={styles.wrapper}>
                     {/* начало таблицы */}
@@ -45,8 +57,8 @@ export default function Table({ wordDictionary, setWordDictionary }) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {wordDictionary.map((item) => {
-                                        return <Row wordDictionary={item} key={item.id} handleSave={handleSave} handleRemove={handleRemove} />;
+                                    {data.map((item) => {
+                                        return <Row words={item} key={item.id} handleSave={handleSave} handleRemove={handleRemove} />;
                                     })}
                                 </tbody>
                             </table>

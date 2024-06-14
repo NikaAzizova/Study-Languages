@@ -3,9 +3,9 @@ import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import styles from './Row.module.scss';
 
-export default function Row({ wordDictionary, handleRemove, handleSave }) {
-    //получаем пропсы
-    const { id, word, transcription, translation } = wordDictionary;
+export default function Row({ words, handleRemove, handleSave }) {
+    
+    const { id, english, transcription, russian } = words;
 
 
     const [openEditing, setOpenEditing] = useState(false);
@@ -20,10 +20,10 @@ export default function Row({ wordDictionary, handleRemove, handleSave }) {
 
     //при изменении слов они будут меняться в состояниях
     useEffect(() => {
-        setWordSt(word);
+        setWordSt(english);
         setTranscription(transcription);
-        setTranslationWord(translation);
-    }, [wordDictionary])
+        setTranslationWord(russian);
+    }, [words])
 
     //Проверяем инпуты на наличие в них слов,и чтобы совпадали с регулярным выражением
     const regEng = /(?:\s|^)[A-Za-z0-9\-\.\_]+(?:\s|$)/;;
@@ -58,7 +58,7 @@ export default function Row({ wordDictionary, handleRemove, handleSave }) {
                             onChange={(e) => setWordSt(e.target.value)}
                         />
                     ) : (
-                        word
+                        english
                     )}
                 </td>
                 <td className={styles.td}>
@@ -83,7 +83,7 @@ export default function Row({ wordDictionary, handleRemove, handleSave }) {
                             onChange={(e) => setTranslationWord(e.target.value)}
                         />
                     ) : (
-                        translation
+                        russian
                     )}
                 </td>
                 <td className={styles.td}>
