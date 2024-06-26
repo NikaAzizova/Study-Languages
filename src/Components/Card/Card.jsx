@@ -49,10 +49,13 @@ export default Card;
 */
 
 export default function Card({ words,showWord,setShowWord }) {
-    //const [showWord, setShowWord] = useState(false);// состояние для отрисовки перевода слова, и количества выученных слов, если кликнули на кнопку "проверить", если нет то по умолчанию стоит кнопка и число 0
+
+    const {english, transcription, russian, id} = words;
+
+   
     const [count, setCount] = useState(0)//храним число выученных слов, по умолчанию стоит 0
     const refbtn =useRef();
-   console.log(words);
+   
     const onButtonClick = () => {
         setShowWord(true);
         setCount(count + 1) // при клике на кнопку, в состояние будет записываться +1, и  итог отрисовываться
@@ -71,12 +74,12 @@ export default function Card({ words,showWord,setShowWord }) {
 
     return (
         <div>
-            <div className={styles.card} key={words.id} >
+            <div className={styles.card} key={id} >
                 <div className={styles.wrapper}>
-                    <p className={styles.word}>{words.english}</p>
-                    <p className={styles.transcription}>{words.transcription}</p>
+                    <p className={styles.word}>{english}</p>
+                    <p className={styles.transcription}>{transcription}</p>
                     <button className={styles.div}  ref={refbtn}>
-                        {showWord ? <p className={styles.translationWord}>{words.russian}</p> : <span  onClick={onButtonClick}>Проверить</span> }
+                        {showWord ? <p className={styles.translationWord}>{russian}</p> : <span  onClick={onButtonClick}>Проверить</span> }
                       
                       {/*<Button  ref={refbtn}  onTouch={onButtonClick} >Проверить</Button>*/} 
                     </button>
