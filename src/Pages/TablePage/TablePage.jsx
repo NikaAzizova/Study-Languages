@@ -1,11 +1,11 @@
-import Table from "../../Components/Table/Table";
+import Table from "../../Components/Table/Table.jsx";
 
-export default function TablePage(props){
-    const wordDictionary = props.wordDictionary;
-    const setWordDictionary = props.setWordDictionary;
-    return(
-        <div>
-            <Table wordDictionary={wordDictionary} setWordDictionary={setWordDictionary} />
-        </div>
-    )
-}
+
+    export default function TablePage(){
+        return(
+            <div>
+                <Table />
+            </div>
+        )
+
+    }

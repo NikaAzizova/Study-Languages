@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "mobx": "^6.12.4",
+    "mobx-react": "^9.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.2.1",

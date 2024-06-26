@@ -1,12 +1,46 @@
-import { useState } from "react"
+import { Provider } from "mobx-react"
+import { observer, inject } from "mobx-react"
+import { useState, useEffect } from "react"
 import { Route, Routes } from 'react-router-dom'
-import { englishWords } from '../../words.js'
+//import { englishWords } from '../../words.js'
 import Header from '../Header/Header.jsx'
 import Footer from '../Footer/Footer.jsx'
-import { HomePage, TablePage, ErrorPage, GamePage } from '../../Pages';
+import { HomePage,GamePage, ErrorPage, TablePage } from '../../Pages';
+//import TablePage from "../../Pages/TablePage/TablePage.jsx"
+//import  GamePage  from "../../Pages/GamePage/gamePage.jsx"
 import styles from './App.module.scss'
 
 
+const App = inject(["wordStore"])(
+  observer(({ wordStore }) => {
+
+  useEffect(() => {
+    wordStore.getData();
+  }, [])
+ 
+  return (
+    <>
+      <div className={styles.container}>
+
+        <Header />
+        <main>
+          <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/table' element={<TablePage />} />
+            <Route path='/game' element={<GamePage />} />
+            <Route path='*' element={<ErrorPage />} />
+          </Routes>
+        </main>
+
+        <Footer />
+      </div>
+
+    </>
+  )
+}));
+
+export default App;
+/*
 function App() {
 
   //отправим слова в localSrorage
@@ -35,7 +69,7 @@ function App() {
             <Route path='*' element={<ErrorPage />} />
           </Routes>
         </main>
-        <Footer />
+     
 
       </div>
 
@@ -44,3 +78,4 @@ function App() {
 }
 
 export default App
+*/

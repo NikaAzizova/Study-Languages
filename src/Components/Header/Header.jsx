@@ -16,8 +16,9 @@ export default function Header() {
 
             <nav className={styles.nav}>
                 <NavLink to='/' className={styles.navLink}>Home</NavLink>
-                <NavLink to='/game' className={styles.navLink}>Game</NavLink>
                 <NavLink to='/table' className={styles.navLink}>Table</NavLink>
+                <NavLink to='/game' className={styles.navLink}>Game</NavLink>
+
                 <Button>Войти</Button>
             </nav>
 
