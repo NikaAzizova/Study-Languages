@@ -43,14 +43,28 @@ const Slider = inject(['wordStore'])(observer(({ wordStore }) => {
             <div className={styles.sliderContainer}>
                 {/* изображение стрелочки влево}*/}
                 <div className={styles.arrowLeft}>
-                    <img onClick={prevSlider} className={styles.arrowLeftImg} src={arrowLeft} alt="стрелка влево" />
+
+                    <img onClick={prevSlider} 
+                    className={styles.arrowLeftImg} 
+                    src={arrowLeft} 
+                    alt="стрелка влево" />
+
                 </div>
                 {/* сам компонент карточки}*/}
 
-                <Card words={wordStore.words[countSlider]}  showWord={showWord} setShowWord={setShowWord} />
+                <Card 
+                words={wordStore.words[countSlider]}  
+                showWord={showWord} 
+                setShowWord={setShowWord} />
+
                 {/* изображение стрелочки вправо*/}
                 <div className={styles.arrowRight}>
-                    <img onClick={nextSlider} className={styles.arrowRightImg} src={arrowRight} alt="стрелка в право" />
+
+                    <img onClick={nextSlider} 
+                    className={styles.arrowRightImg} 
+                    src={arrowRight} 
+                    alt="стрелка в право" />
+                    
                 </div>
             </div>
             {/*номер слова по порядку / общее количество слов*/}

@@ -29,7 +29,7 @@ const Table = inject(['wordStore'])(observer(({ wordStore }) => {
 
     return (
         <div className={styles.container}>
-            <AddingNewLine /*wordDictionary={wordDictionary} setWordDictionary={setWordDictionary}*/ />
+            <AddingNewLine />
             <div className={styles.wordList}>
                 <div className={styles.wrapper}>
                     {/* начало таблицы */}
@@ -47,7 +47,12 @@ const Table = inject(['wordStore'])(observer(({ wordStore }) => {
                                 <tbody>
                                     {wordStore.words.map((item, index) => {
 
-                                        return <Row wordDictionary={item} index={index} key={item.id} handleSave={handleSave} handleRemove={handleRemove} />;
+                                        return <Row 
+                                        wordDictionary={item} 
+                                        index={index} 
+                                        key={item.id} 
+                                        handleSave={handleSave} 
+                                        handleRemove={handleRemove} />;
                                     })}
                                 </tbody>
                             </table>
