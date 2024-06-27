@@ -5,16 +5,25 @@ import styles from './Row.module.scss';
 
 
 
-    export default function Row({ wordDictionary, handleRemove, handleSave, index }) {
+export default function Row({ wordDictionary, handleRemove, handleSave, index }) {
     const { id, english, transcription, russian } = wordDictionary;
 
     const indexOfWord = index;
-
 
     const [openEditing, setOpenEditing] = useState(false);
     const [wordSt, setWordSt] = useState("");
     const [transcriptionWord, setTranscription] = useState("");
     const [translationWord, setTranslationWord] = useState("");
+
+    const [valid, setValid] = useState(false); //пока не получилось сделать кнопку заблокированной
+
+    const [wordError, setWordError] = useState("");
+    const [transcriptionError, setTranscriptionError] = useState("");
+    const [translationError, setTranslationError] = useState('');
+
+    const [wordRed, setWordRed] = useState(false);
+    const [transcriptionRed, setTranscriptionRed] = useState(false);
+    const [translationRed, setTranslationRed] = useState(false);
 
     //открываем редактирование
     const handleEditing = (id) => {
@@ -28,28 +37,63 @@ import styles from './Row.module.scss';
         setTranslationWord(russian);
     }, [wordDictionary])
 
-    
-    //Проверяем инпуты на наличие в них слов,и чтобы совпадали с регулярным выражением
-    const regEng = /(?:\s|^)[A-Za-z0-9\-\.\_]+(?:\s|$)/;;
-    const regTranslation = /(?:\s|^)[а-яА-Я0-9\-\.\_]+(?:\s|$)/;//русское слово
-    
+    //проверка чтобы сделать кнопку заблокированной в случае ошибок в введеных словах
+    useEffect(() => {
+        if (wordError || translationError || translationError) {
+            setValid(false);
 
-    const wordError = [];
-    const translationError = [];
+        } else {
+            setValid(true);
+        }
+    }, [wordError, translationError, translationError])
 
-    if (!regEng.test(String(wordSt))) {
-        wordError.push('Введите слово английскими буквами');
 
+    //Делаем проверку английского слова
+    const wordHandler = (e) => {
+        setWordSt(e.target.value);
+        const reg = /(?:\s|^)[A-Za-z0-9\-\.\_]+(?:\s|$)/; //анл слово
+
+        if (!reg.test(String(e.target.value))) {
+            setWordError('Введите слово английскими буквами!');
+            setWordRed(true)
+
+        } else {
+            setWordError('');
+            setWordRed(false)
+        }
     }
 
-    if (!regTranslation.test(translationWord)) {
-        translationError.push('Введите слово русскими буквами');
+    //делаем проверку транскрипции
+    const transcriptionHandler = (e) => {
+        setTranscription(e.target.value);
+        const regTranscript = /\[+[A-Za-zʌ:iɪʊueəɜɔæaɑɒʃθŋðʒɛˈ(r)ɡrɑːs]+\]/;
 
+        if (!regTranscript.test(String(e.target.value))) {
+            setTranscriptionError('Транскрипция слова некорректна!');
+            setTranscriptionRed(true)
+
+        } else {
+            setTranscriptionError('');
+            setTranscriptionRed(false)
+        }
     }
 
-//!regTranslation.test(translationWord)
-//!translationWord.match(regTranslation)
-    
+    //Делаем проверку русского слова
+    const translationHandler = (e) => {
+        setTranslationWord(e.target.value);
+        const regTranslation = /(?:\s|^)[а-яА-Я0-9\-\.\_]+(?:\s|$)/;//русское слово
+
+        if (!regTranslation.test(String(e.target.value))) {
+            setTranslationError('Перевод слова некорректен, используйте русские буквы!');
+            setTranslationRed(true);
+
+        } else {
+            setTranslationError('');
+            setTranslationRed(false);
+        }
+    }
+
+
     return (
         <>
             <tr className={styles.tr} >
@@ -57,22 +101,24 @@ import styles from './Row.module.scss';
                     <span className={styles.error}>{wordError}</span> {/*Здесь появится инф-я об ошибке*/}
                     {openEditing ? (
                         <input
-                            className={styles.inputWord}
+                            // className={styles.inputWord}
+                            className={wordRed ? styles.inputWordError : styles.inputWord}
                             type="text"
                             value={wordSt}
-                            onChange={(e) => setWordSt(e.target.value)}
+                            onChange={(e) => wordHandler(e)}
                         />
                     ) : (
                         english
                     )}
                 </td>
                 <td className={styles.td}>
+                    <span className={styles.error}>{transcriptionError}</span> {/*Здесь появится инф-я об ошибке*/}
                     {openEditing ? (
                         <input
                             type="text"
-                            className={styles.inputWord}
+                            className={transcriptionRed ? styles.inputWordError : styles.inputWord}
                             value={transcriptionWord}
-                            onChange={(e) => setTranscription(e.target.value)}
+                            onChange={(e) => transcriptionHandler(e)}
                         />
                     ) : (
                         transcription
@@ -83,9 +129,9 @@ import styles from './Row.module.scss';
                     {openEditing ? (
                         <input
                             type="text"
-                            className={styles.inputWord}
+                            className={translationRed ? styles.inputWordError : styles.inputWord}
                             value={translationWord}
-                            onChange={(e) => setTranslationWord(e.target.value)}
+                            onChange={(e) => translationHandler(e)}
                         />
                     ) : (
                         russian
@@ -93,10 +139,12 @@ import styles from './Row.module.scss';
                 </td>
                 <td className={styles.td}>
                     {openEditing ? (
-                        <button className={styles.btnSave}
+                        <button
+                            disabled={!valid}
+                            className={valid ? styles.btnSave : styles.btnDisabled}
                             onClick={() => {
                                 setOpenEditing(false),
-                                    handleSave({
+                                handleSave({
                                         id,
                                         wordSt,
                                         transcriptionWord,
@@ -107,12 +155,14 @@ import styles from './Row.module.scss';
                             }>
                             <IoCheckmarkDoneCircle
                                 className={styles.doneImg}
+
+
                             />
                         </button>
                     ) : (
                         <BsFillPencilFill
                             onClick={() => handleEditing(id)}
-                            className={styles.editingImg} disabled
+                            className={styles.editingImg}
                         />
                     )}
 
@@ -177,80 +227,80 @@ export default function Row({ wordDictionary, handleRemove, handleSave }) {
             <tr className={styles.tr} >
                 <td className={styles.td}>
                     <span className={styles.error}>{wordError}</span> {/*Здесь появится инф-я об ошибке*//*}
-                    {openEditing ? (
-                        <input
-                            className={styles.inputWord}
-                            type="text"
-                            value={wordSt}
-                            onChange={(e) => setWordSt(e.target.value)}
-                        />
-                    ) : (
-                        word
-                    )}
-                </td>
-                <td className={styles.td}>
-                    {openEditing ? (
-                        <input
-                            type="text"
-                            className={styles.inputWord}
-                            value={transcriptionWord}
-                            onChange={(e) => setTranscription(e.target.value)}
-                        />
-                    ) : (
-                        transcription
-                    )}
-                </td>
-                <td className={styles.td}>
-                    <span className={styles.error}>{translationError}</span> {/*Здесь появится инф-я об ошибке*//*}
-                    {openEditing ? (
-                        <input
-                            type="text"
-                            className={styles.inputWord}
-                            value={translationWord}
-                            onChange={(e) => setTranslationWord(e.target.value)}
-                        />
-                    ) : (
-                        translation
-                    )}
-                </td>
-                <td className={styles.td}>
-                    {openEditing ? (
-                        <button className={styles.btnSave}
-                            onClick={() => {
-                                setOpenEditing(false),
-                                    handleSave({
-                                        id,
-                                        wordSt,
-                                        transcriptionWord,
-                                        translationWord
-                                    })
-                            }
-                            }>
-                            <IoCheckmarkDoneCircle
-                                className={styles.doneImg}
-                            />
-                        </button>
-                    ) : (
-                        <BsFillPencilFill
-                            onClick={() => handleEditing(id)}
-                            className={styles.editingImg} disabled
-                        />
-                    )}
+{openEditing ? (
+<input
+className={styles.inputWord}
+type="text"
+value={wordSt}
+onChange={(e) => setWordSt(e.target.value)}
+/>
+) : (
+word
+)}
+</td>
+<td className={styles.td}>
+{openEditing ? (
+<input
+type="text"
+className={styles.inputWord}
+value={transcriptionWord}
+onChange={(e) => setTranscription(e.target.value)}
+/>
+) : (
+transcription
+)}
+</td>
+<td className={styles.td}>
+<span className={styles.error}>{translationError}</span> {/*Здесь появится инф-я об ошибке*//*}
+{openEditing ? (
+    <input
+        type="text"
+        className={styles.inputWord}
+        value={translationWord}
+        onChange={(e) => setTranslationWord(e.target.value)}
+    />
+) : (
+    translation
+)}
+</td>
+<td className={styles.td}>
+{openEditing ? (
+    <button className={styles.btnSave}
+        onClick={() => {
+            setOpenEditing(false),
+                handleSave({
+                    id,
+                    wordSt,
+                    transcriptionWord,
+                    translationWord
+                })
+        }
+        }>
+        <IoCheckmarkDoneCircle
+            className={styles.doneImg}
+        />
+    </button>
+) : (
+    <BsFillPencilFill
+        onClick={() => handleEditing(id)}
+        className={styles.editingImg} disabled
+    />
+)}
 
-                    <BsFillTrashFill
-                        onClick={() => handleRemove(id)}
-                        className={styles.removeImg}
-                    />
-                </td>
-            </tr>
-
-
+<BsFillTrashFill
+    onClick={() => handleRemove(id)}
+    className={styles.removeImg}
+/>
+</td>
+</tr>
 
 
 
 
-        </>
-    )
+
+
+</>
+)
 }
 
 */

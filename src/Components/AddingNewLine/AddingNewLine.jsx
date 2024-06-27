@@ -92,13 +92,10 @@ const AddingNewLine = inject((["wordStore"]))(observer(({ wordStore }) => {
 
     const transcriptionHandler = (e) => {
         setInputTranscription(e.target.value);
-        //Регулярное выражение для слова из англ букв,
-        //для транскрипции пока не найдено. 
-        //Включено только что слово должно быть в квадратных скобках,хотя работает и без них
-        const regEng = /(?:\[|^)[A-Za-z0-9\-\.\_]+(?:\]|$)/;
 
+        const regTranscript = /\[+[A-Za-zʌ:iɪʊueəɜɔæaɑɒʃθŋðʒɛˈ(r)ɡrɑːs]+\]/;
 
-        if (!regEng.test(String(e.target.value).trim(e.target.value))) {
+        if (!regTranscript.test(String(e.target.value).trim(e.target.value))) {
             setTranscriptionError('Транскрипция слова некорректна!');
 
         } else {
@@ -120,19 +117,7 @@ const AddingNewLine = inject((["wordStore"]))(observer(({ wordStore }) => {
         }
     }
 
-    //добавим новую строчку в слова
-    /* const AddNewRow = () => {
-         const id = wordDictionary.length ? wordDictionary[wordDictionary.length - 1].id + 1 : 1;
-         const itemRowtoAdd = { word: inputWord, transcription: inputTranscription, translation: inputTranslation, id };
-         const updatedList = [...wordDictionary, itemRowtoAdd];
-         setWordDictionary(updatedList);
-         setInputWord("");
-         setInputTranscription("");
-         setInputTranslation("");
-         console.log("слово: "+inputWord,"транскрипция: "+ inputTranscription,"перевод: "+inputTranslation);
-     }*/
-    
-//Добавляем новую строчку слов
+    //Добавляем новую строчку слов
     const handleSubmit = () => {
         const obj = {
             english: inputWord,
@@ -143,16 +128,47 @@ const AddingNewLine = inject((["wordStore"]))(observer(({ wordStore }) => {
         }
         wordStore.addNewWord(obj);
     }
-//inputWord,inputTranscription,inputTranslation
 
     return (
         <>
             <h3 className={styles.title}>Добавить новое слово</h3>
             <form className={styles.tr} onSubmit={handleSubmit}>
-                <div className={styles.td}><input className={wordRed ? styles.inputWordError : styles.inputWord} type='text' onChange={(e) => wordHandler(e)} onBlur={(e) => handlerBlur(e)} name="word" placeholder="word" value={inputWord} /></div>
-                <div className={styles.td}><input className={transcriptionRed ? styles.inputWordError : styles.inputWord} type='text' onChange={(e) => transcriptionHandler(e)} onBlur={(e) => handlerBlur(e)} name="transcription" placeholder="transcription" value={inputTranscription} /></div>
-                <div className={styles.td}><input className={translationRed ? styles.inputWordError : styles.inputWord} type='text' onChange={(e) => translationHandler(e)} onBlur={(e) => handlerBlur(e)} name="translation" placeholder="translation" value={inputTranslation} /></div>
-                <div className={styles.td}> <button type='submit' disabled={!formValid} /*onClick={AddNewRow}*/ className={formValid ? styles.btn : styles.btnDisabled} ><IoCheckmarkDoneCircle className={styles.doneImg} /></button></div>
+                <div className={styles.td}>
+                    <input className={wordRed ? styles.inputWordError : styles.inputWord}
+                        type='text'
+                        onChange={(e) => wordHandler(e)}
+                        onBlur={(e) => handlerBlur(e)}
+                        name="word"
+                        placeholder="word"
+                        value={inputWord} />
+                </div>
+                <div className={styles.td}>
+                    <input className={transcriptionRed ? styles.inputWordError : styles.inputWord}
+                        type='text'
+                        onChange={(e) => transcriptionHandler(e)}
+                        onBlur={(e) => handlerBlur(e)}
+                        name="transcription"
+                        placeholder="transcription"
+                        value={inputTranscription} />
+                </div>
+                <div className={styles.td}>
+                    <input className={translationRed ? styles.inputWordError : styles.inputWord}
+                        type='text'
+                        onChange={(e) => translationHandler(e)}
+                        onBlur={(e) => handlerBlur(e)}
+                        name="translation"
+                        placeholder="translation"
+                        value={inputTranslation} />
+                </div>
+                <div className={styles.td}>
+                    <button
+                        type='submit'
+                        disabled={!formValid} /*onClick={AddNewRow}*/
+                        className={formValid ? styles.btn : styles.btnDisabled} >
+                        <IoCheckmarkDoneCircle
+                            className={styles.doneImg} />
+                    </button>
+                </div>
 
             </form>
 
