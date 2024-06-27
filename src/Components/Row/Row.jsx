@@ -51,7 +51,7 @@ export default function Row({ wordDictionary, handleRemove, handleSave, index })
     //Делаем проверку английского слова
     const wordHandler = (e) => {
         setWordSt(e.target.value);
-        const reg = /(?:\s|^)[A-Za-z0-9\-\.\_]+(?:\s|$)/; //анл слово
+        const reg = /(?:\s|^)[A-Za-z\-\.\_]+(?:\s|$)/; //анл слово
 
         if (!reg.test(String(e.target.value))) {
             setWordError('Введите слово английскими буквами!');
@@ -81,7 +81,7 @@ export default function Row({ wordDictionary, handleRemove, handleSave, index })
     //Делаем проверку русского слова
     const translationHandler = (e) => {
         setTranslationWord(e.target.value);
-        const regTranslation = /(?:\s|^)[а-яА-Я0-9\-\.\_]+(?:\s|$)/;//русское слово
+        const regTranslation = /(?:\s|^)[а-яА-Я\-\.\_]+(?:\s|$)/;//русское слово
 
         if (!regTranslation.test(String(e.target.value))) {
             setTranslationError('Перевод слова некорректен, используйте русские буквы!');
