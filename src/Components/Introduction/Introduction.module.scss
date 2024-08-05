@@ -1,47 +1,80 @@
 @import '../../styles/template.module.scss';
 
 .container {
-    max-width: 80%;
+    //max-width: 100%;
     width: 80%;
-    min-height: 74.5vh;
+    min-height:81.1vh;
     margin: 0 auto;
     padding-top: 40px;
     .blockTitle {
-        font-size: 20px;
+        //font-size: 24px;
 
         .title {
             margin-bottom: 20px;
-            font-size: 20px;
+            font-size: 30px;
             @include fontText;
             font-weight: 700;
-            font-size: 2.5vw;
             text-align: center;
             color: $TextColor;
+            @media screen and (max-width: 375px){
+               font-size: 20px;
+            }
         }
     }
 
     .details {
         display: flex;
         justify-content: space-around;
+        @media screen and (max-width: 556px){
+            flex-direction: column;
+         }
 
         .blockDescription {
-
+           
             .description {
                 padding: 20px 20px 20px 20px;
                 max-width: 70%;
                 @include fontText;
                 font-weight: 500;
-                font-size: 1.4vw;
-                text-align: left;
+                font-size: 23px;
+                text-align: justify;
                 color: $TextColor;
+                @media screen and (max-width: 1368px){
+                    padding: 0;
+                    max-width: 100%;
+                }
+                @media screen and (max-width: 980px){
+                    font-size: 20px;
+                }
+                @media screen and (max-width: 680px){
+                    font-size: 17px;
+                }
+               
 
             }
         }
 
         .blockImage {
-
+            @media screen and (max-width: 556px){
+                text-align: center;
+              
+            }
             .image {
-                max-width: 40vw;
+                max-width: 586px;
+                @media screen and (max-width: 1368px){
+                    max-width: 500px;
+                }
+                @media screen and (max-width: 980px){
+                    max-width: 370px;
+                }
+                @media screen and (max-width: 680px){
+                    max-width: 300px;
+                }
+
+                @media screen and (max-width: 435px){
+                    
+                   max-width: 210px;
+                }
             }
         }
     }

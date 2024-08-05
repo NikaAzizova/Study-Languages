@@ -34,7 +34,6 @@ export default function Card({ words, showWord, setShowWord }) {
                     <button className={styles.div}  ref={refbtn}>
                         {showWord ? <p className={styles.translationWord}>{words.translation}</p> : <span  onClick={onButtonClick}>Проверить</span> }
                       
-                      {/*<Button  ref={refbtn}  onTouch={onButtonClick} >Проверить</Button>*/} 
                     </button>
                 </div>
                 <p className={styles.learnedAmount}>Выучено в этот раз: <span>{count}</span></p>

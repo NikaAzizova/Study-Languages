@@ -5,9 +5,7 @@ export default function Footer(){
     return(
             <footer className={styles.footer}>
                 <div className={styles.wrapper}>
-                <Button>Выученные</Button>
-                <Button>Карточки слов</Button>
-                <Button>Список слов</Button>
+                    <p className={styles.footertext}>Разработано: @Del_Luna04</p>
                 </div>
             </footer>
        

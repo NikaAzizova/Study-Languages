@@ -2,7 +2,6 @@
 
 .card {
     height: 50vh;
-    padding-top: 40px;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
@@ -15,13 +14,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 16vw;
-        height: 35vh;
+        width: 278px;
+        height: 378px;
         margin-bottom: 40px;
         padding: 2vw;
-        border: 1.5px solid $cardColor;
+        border: 2px solid $cardColor;
         border-radius: 10px;
-        box-shadow: 5px 5px 5px 5px $boxShadowTable;
+        //box-shadow: 5px 5px 5px 5px $boxShadowTable;
 
         .word {
             padding-top: 10px;
@@ -29,7 +28,7 @@
             display: block;
             @include fontText;
             font-weight: 500;
-            font-size: 2vw;
+            font-size: 30px;
             color: $cardColor;
         }
 
@@ -38,15 +37,16 @@
             margin-bottom: 30px;
             @include fontText;
             font-weight: 500;
-            font-size: 1.5vw;
+            font-size: 22px;
             color: $cardColor;
         }
 
         .div {
             display: block;
             text-align: center;
-
-            padding: 1vh 1vh 1vh 1vh;
+            width: 141px;
+            height: 43px;
+            //padding: 1vh 1vh 1vh 1vh;
             background-color: $backgroundColorButton;
             border: 1px solid $whiteColor;
             border-radius: 10px;
@@ -54,7 +54,7 @@
             //font-family: $fontFamilyButton;
             @include fontText;
             font-weight: 400;
-            font-size: 1.5vw;
+            font-size: 20px;
             color: $whiteColor;
             cursor: pointer;
             transition: all 0.3s;
@@ -62,7 +62,6 @@
             .translationWord {
                 @include fontText;
                 font-weight: 500;
-                font-size: 1.5vw;
                 color: $TextColor;
             }
         }
@@ -79,7 +78,7 @@
         display: block;
         @include fontText;
         font-weight: 500;
-        font-size: 1.5vw;
+        font-size: 22px;
         color: $cardColor;
     }
 }

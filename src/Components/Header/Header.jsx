@@ -10,7 +10,7 @@ export default function Header() {
             <div className={styles.wrapper}>
 
                 <nav className={styles.nav}>
-                    <NavLink to='/' className={styles.navLink}><img className={styles.logo} src={logo} alt="logo" /></NavLink>
+                    <NavLink to='/'><img className={styles.logo} src={logo} alt="logo" /></NavLink>
                 </nav>
             </div>
 
@@ -18,7 +18,6 @@ export default function Header() {
                 <NavLink to='/' className={styles.navLink}>Home</NavLink>
                 <NavLink to='/game' className={styles.navLink}>Game</NavLink>
                 <NavLink to='/table' className={styles.navLink}>Table</NavLink>
-                <Button>Войти</Button>
             </nav>
 
         </header>

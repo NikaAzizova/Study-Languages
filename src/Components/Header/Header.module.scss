@@ -1,45 +1,58 @@
 @import '../../styles/template.module.scss';
 
 .header {
-    max-width: 100%;
-    width: 100%;
-    min-height: 11vh;
-    //margin-bottom: 30px;
-    display: flex;
-    justify-content: space-between;
-    background-color: $backgroundColorHeaderFooter;
-  .nav{
+  max-width: 100%;
+  width: 100%;
+  //margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  background-color: $backgroundColorHeaderFooter;
+
+  .nav {
     padding-right: 5vw;
-    min-height: 11vh;
+    min-height: 10vh;
     display: flex;
     align-items: center;
     flex-basis: 30%;
     justify-content: space-around;
-   
 
-    .navLink{
-        text-decoration: none;
-        font-family: $fontFamilyText;
-        font-weight: 600;
-        font-style: normal;
+    @media screen and (max-width: 980px) {
+      gap: 15px;
+    }
+    
+
+
+    .navLink {
+      text-decoration: none;
+      font-family: $fontFamilyText;
+      font-weight: 600;
+      font-style: normal;
+      font-size: 24px;
+
+      @media screen and (max-width: 556px) {
         font-size: 20px;
+      }
     }
 
-    .logo{
-      max-width: 4vw;
+    .logo {
+      max-width: 79px;
+      @media screen and (max-width: 435px){
+        max-width: 60px;           
+
+     }
     }
   }
 
 }
 
 .wrapper {
-    max-width: 100%;
-    min-height: 11vh;
-    display: flex;
-    align-items: center;
-    padding: 15px 5% 20px 5%;
-    display: flex;
-    //flex-basis: 60%;
-    background-color: $backgroundColorHeaderFooter;
-    
+  max-width: 100%;
+  min-height: 11vh;
+  display: flex;
+  align-items: center;
+  padding: 15px 5% 20px 5%;
+  display: flex;
+  //flex-basis: 60%;
+  background-color: $backgroundColorHeaderFooter;
+
 }
