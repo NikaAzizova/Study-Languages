@@ -84,16 +84,17 @@ class ObservableWordStore{
         if(!response.ok){
             throw new Error('Network response was not ok')
         }
-        console.log(response);
+    
     const newArr = this.words.map((el,i)=>{
-      console.log(i);
+        console.log(el, i);
+        
         if(i==index){
-           el={...word};
-           console.log(word);
+           el={...word};     
        }
        return el;
     });
-    console.log(newArr);
+    console.log();
+    
     this.words = newArr;
    
     })

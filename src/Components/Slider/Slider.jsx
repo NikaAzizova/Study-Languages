@@ -7,15 +7,16 @@ import { observer, inject } from "mobx-react";
 
 
 const Slider = inject(['wordStore'])(observer(({ wordStore }) => {
+    const [countSlider, setCountSlider] = useState(0);
+    const [showWord, setShowWord] = useState(false);// состояние для отрисовки перевода слова, и количества выученных слов, если кликнули на кнопку "проверить", если нет то по умолчанию стоит кнопка и число 0
+
 
     useEffect(() => {
         wordStore.getData();
-      }, [])
+      }, [wordStore])
 
       console.log(wordStore);
-    const [countSlider, setCountSlider] = useState(0);
-    // const wordItem = stateWords;//записываем состояние stateWords в переменную чтобы получить последний индекс обьекта
-    const [showWord, setShowWord] = useState(false);// состояние для отрисовки перевода слова, и количества выученных слов, если кликнули на кнопку "проверить", если нет то по умолчанию стоит кнопка и число 0
+    
    
      console.log(wordStore.words);
     //стрелочная функция при помощи которой переключаем слова при клике на стрелочку назад
@@ -35,6 +36,13 @@ const Slider = inject(['wordStore'])(observer(({ wordStore }) => {
             console.log(newCount);
             return newCount;
         })
+    }
+
+    if(wordStore.isGetLoading){
+        return <div>Loading...</div>
+    }
+    if(!wordStore.words || wordStore.words.length === 0){
+        return <div>No words available...</div>
     }
 
 
