@@ -68,12 +68,10 @@ class ObservableWordStore{
      })
    }
 
-   updateWord(word, index){
-    console.log(word);
+   updateWord(word){
     this.isLoading = true;
-    console.log(word, index);
-    const id = word.id;
-    return fetch(`api/words/${id}/update`,{
+    //const id = word.id;
+    return fetch(`api/words/${word.id}/update`,{
         method: 'POST',
         headers: {
             'Content-Type':'application/json;charset=utf-8'
@@ -82,21 +80,24 @@ class ObservableWordStore{
     })
     .then((response)=>{
         if(!response.ok){
-            throw new Error('Network response was not ok')
+            throw new Error('Failed to update word');
         }
-    
-    const newArr = this.words.map((el,i)=>{
-        console.log(el, i);
+         return response.json();
+    //const newArr = this.words.map((el,i)=>{
+       // console.log(el, i);
         
-        if(i==index){
-           el={...word};     
-       }
-       return el;
-    });
-    console.log();
+       // if(i==index){
+       //    el={...word};     
+     //  }
+     //  return el;
+   // });
+    //console.log();
     
-    this.words = newArr;
+   // this.words = newArr;
    
+    }).then(data => {
+        const index = this.words.findIndex(item => item.id === word.id)
+      this.words[index] = data;
     })
     .catch((error)=>{
         console.log(error);

@@ -3,11 +3,17 @@ import AddingNewLine from '../AddingNewLine/AddingNewLine.jsx'
 import Row from "../Row/Row.jsx";
 import { observer, inject } from 'mobx-react';
 //import { useEffect, useState } from 'react';
+////////////////////
+import { useEffect, useState } from 'react';
+import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
+//import styles from '../Row/Row.module';
 
 const Table = inject(['wordStore'])(observer(({ wordStore }) => {
 
     //сохраняем отредактированные слова(на АПИ почему то не отправляется, только локально)
     function handleSave({ id, wordSt, transcriptionWord, translationWord, index }) {
+        console.log(id, wordSt, transcriptionWord, translationWord);
 
         const word = {
 
@@ -19,13 +25,16 @@ const Table = inject(['wordStore'])(observer(({ wordStore }) => {
             tag_json: "",
         }
         console.log(word);
-        wordStore.updateWord(word, index);
-  
+        wordStore.updateWord(word);
+
     }
-   
+
     const handleRemove = (id, index) => {
         wordStore.deleteWord(id, index);
     }
+
+
+
 
     return (
         <div className={styles.container}>
@@ -45,14 +54,16 @@ const Table = inject(['wordStore'])(observer(({ wordStore }) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {wordStore.words.map((item, index) => {
+                                    {wordStore.words.map((word, index) => {
+                                        //начало тестинга
+                                        return <Row
+                                        key={word.id}
+                                            wordDictionary={word}
+                                            index={index}
+                                            
+                                            handleSave={handleSave}
+                                            handleRemove={handleRemove} />;
 
-                                        return <Row 
-                                        wordDictionary={item} 
-                                        index={index} 
-                                        key={item.id} 
-                                        handleSave={handleSave} 
-                                        handleRemove={handleRemove} />;
                                     })}
                                 </tbody>
                             </table>
