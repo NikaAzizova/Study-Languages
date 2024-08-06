@@ -5,10 +5,8 @@ import styles from './Row.module.scss';
 
 
 
- function Row({ wordDictionary, handleRemove, handleSave }) {
+ function Row({ wordDictionary, handleRemove, handleSave, index }) {
     const { id, english, transcription, russian } = wordDictionary;
-
-    //const indexOfWord = index;
 
     const [openEditing, setOpenEditing] = useState(false);
     const [wordSt, setWordSt] = useState("");
@@ -149,6 +147,7 @@ import styles from './Row.module.scss';
                             onClick={() => {
                                 setOpenEditing(false),
                                 handleSave({
+                                    index,
                                     id,
                                     wordSt,
                                     transcriptionWord,
@@ -172,7 +171,7 @@ import styles from './Row.module.scss';
                     )}
 
                     <BsFillTrashFill
-                        onClick={() => handleRemove(id, indexOfWord)}
+                        onClick={() => handleRemove(id, index)}
                         className={styles.removeImg}
                     />
                 </td>

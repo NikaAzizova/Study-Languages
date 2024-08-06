@@ -68,7 +68,8 @@ class ObservableWordStore{
      })
    }
 
-   updateWord(word){
+   updateWord(word, id){
+    
     this.isLoading = true;
     //const id = word.id;
     return fetch(`api/words/${word.id}/update`,{
@@ -82,22 +83,20 @@ class ObservableWordStore{
         if(!response.ok){
             throw new Error('Failed to update word');
         }
-         return response.json();
-    //const newArr = this.words.map((el,i)=>{
-       // console.log(el, i);
         
-       // if(i==index){
-       //    el={...word};     
-     //  }
-     //  return el;
-   // });
-    //console.log();
+    const newArr = this.words.map((el,i)=>{
+        console.log(el);
+        
+        
+       if(el.id==id){
+           el={...word};     
+       }
+      return el;
+    });
     
-   // this.words = newArr;
-   
-    }).then(data => {
-        const index = this.words.findIndex(item => item.id === word.id)
-      this.words[index] = data;
+    
+   this.words = newArr;
+   return response.json();
     })
     .catch((error)=>{
         console.log(error);
