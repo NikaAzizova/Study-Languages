@@ -3,11 +3,9 @@ import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import styles from './Row.module.scss';
 
-export default function Row({ wordDictionary, handleRemove, handleSave }) {
+export default function Row({ words}) {
     //получаем пропсы
-    const { id, word, transcription, translation } = wordDictionary;
-
-
+    const { id, english, transcription, russian } = words;
     const [openEditing, setOpenEditing] = useState(false);
     const [wordSt, setWordSt] = useState("");
     const [transcriptionWord, setTranscription] = useState("");
@@ -20,10 +18,10 @@ export default function Row({ wordDictionary, handleRemove, handleSave }) {
 
     //при изменении слов они будут меняться в состояниях
     useEffect(() => {
-        setWordSt(word);
+        setWordSt(english);
         setTranscription(transcription);
-        setTranslationWord(translation);
-    }, [wordDictionary])
+        setTranslationWord(russian);
+    }, [words])
 
     //Проверяем инпуты на наличие в них слов,и чтобы совпадали с регулярным выражением
     const regEng = /(?:\s|^)[A-Za-z0-9\-\.\_]+(?:\s|$)/;;
@@ -42,9 +40,6 @@ export default function Row({ wordDictionary, handleRemove, handleSave }) {
 
     }
 
-
-
-
     return (
         <>
             <tr className={styles.tr} >
@@ -58,7 +53,7 @@ export default function Row({ wordDictionary, handleRemove, handleSave }) {
                             onChange={(e) => setWordSt(e.target.value)}
                         />
                     ) : (
-                        word
+                        english
                     )}
                 </td>
                 <td className={styles.td}>
@@ -83,20 +78,14 @@ export default function Row({ wordDictionary, handleRemove, handleSave }) {
                             onChange={(e) => setTranslationWord(e.target.value)}
                         />
                     ) : (
-                        translation
+                        russian
                     )}
                 </td>
                 <td className={styles.td}>
                     {openEditing ? (
                         <button className={styles.btnSave}
                             onClick={() => {
-                                setOpenEditing(false),
-                                    handleSave({
-                                        id,
-                                        wordSt,
-                                        transcriptionWord,
-                                        translationWord
-                                    })
+                                setOpenEditing(false)
                             }
                             }>
                             <IoCheckmarkDoneCircle
@@ -111,7 +100,6 @@ export default function Row({ wordDictionary, handleRemove, handleSave }) {
                     )}
 
                     <BsFillTrashFill
-                        onClick={() => handleRemove(id)}
                         className={styles.removeImg}
                     />
                 </td>

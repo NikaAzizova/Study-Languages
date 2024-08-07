@@ -31,7 +31,7 @@ function App() {
           <Routes>
             <Route path='/' element={<HomePage />} />
             <Route path='/game' element={<GamePage stateWords={stateWords} />} />
-            <Route path='/table' element={<TablePage wordDictionary={wordDictionary} setWordDictionary={setWordDictionary} />} />
+            <Route path='/table' element={<TablePage/>} />
             <Route path='*' element={<ErrorPage />} />
           </Routes>
         </main>

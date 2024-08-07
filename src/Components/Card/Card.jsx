@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import styles from './Card.module.scss'
+import { useSelector, useDispatch } from "react-redux";
+import { setData, selectAllWords, getWordsError, getWordsStatus, fetchWords } from '../../Words/wordsSlice.js';
 
 
 
 export default function Card({ words, showWord, setShowWord }) {
-
+  
+/////////////////////////////////////////
     const [count, setCount] = useState(0)//храним число выученных слов, по умолчанию стоит 0
     const refbtn =useRef();
    
@@ -29,10 +32,10 @@ export default function Card({ words, showWord, setShowWord }) {
         <div>
             <div className={styles.card} key={words.id} >
                 <div className={styles.wrapper}>
-                    <p className={styles.word}>{words.word}</p>
+                    <p className={styles.word}>{words.english}</p>
                     <p className={styles.transcription}>{words.transcription}</p>
                     <button className={styles.div}  ref={refbtn}>
-                        {showWord ? <p className={styles.translationWord}>{words.translation}</p> : <span  onClick={onButtonClick}>Проверить</span> }
+                        {showWord ? <p className={styles.translationWord}>{words.russian}</p> : <span  onClick={onButtonClick}>Проверить</span> }
                       
                     </button>
                 </div>
