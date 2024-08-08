@@ -77,10 +77,10 @@ export default function AddingNewLine({ wordDictionary, setWordDictionary}) {
     //Делаем проверку английского слова
     const wordHandler = (e) => {
         setInputWord(e.target.value);
-        const reg = /(?:\s|^)[A-Za-z0-9\-\.\_]+(?:\s|$)/; //анл слово
+        const reg = /(?:\s|^)[A-Za-z\-\.\_]+(?:\s|$)/; //анл слово
 
 
-        if (!reg.test(String(e.target.value).trim(e.target.value))) {
+        if (!reg.test(String(e.target.value))) {
             setWordError('Слово некорректно!');
 
         } else {
@@ -96,10 +96,10 @@ export default function AddingNewLine({ wordDictionary, setWordDictionary}) {
         //Регулярное выражение для слова из англ букв,
         //для транскрипции пока не найдено. 
         //Включено только что слово должно быть в квадратных скобках,хотя работает и без них
-        const regEng = /(?:\[|^)[A-Za-z0-9\-\.\_]+(?:\]|$)/;
+        const regTranscript = /\[+[A-Za-zʌ:iɪʊueəɜɔæaɑɒʃθŋðʒɛˈ(r)ɡrɑːs]+\]/;
       
 
-        if (!regEng.test(String(e.target.value).trim(e.target.value))) {
+        if (!regTranscript.test(String(e.target.value))) {
             setTranscriptionError('Транскрипция слова некорректна!');
 
         } else {
@@ -111,9 +111,9 @@ export default function AddingNewLine({ wordDictionary, setWordDictionary}) {
     //Делаем проверку русского слова
     const translationHandler = (e) => {
         setInputTranslation(e.target.value);
-        const regTranslation = /(?:\s|^)[а-яА-Я0-9\-\.\_]+(?:\s|$)/;//русское слово
+        const regTranslation = /(?:\s|^)[а-яА-Я\-\.\_]+(?:\s|$)/;//русское слово
 
-        if (!regTranslation.test(String(e.target.value).trim(e.target.value))) {
+        if (!regTranslation.test(String(e.target.value))) {
             setTranslationError('Перевод слова некорректен, используйте русские буквы!');
 
         } else {

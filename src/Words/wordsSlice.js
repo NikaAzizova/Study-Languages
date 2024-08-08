@@ -22,21 +22,21 @@ const wordsSlice = createSlice({
             state.words = action.payload
         },
 
-        addData: {
-            reducer(state, action) {
-                state.words.push(action.payload)
-            }, prepare(english, russian, transcription) {
-                return {
-                    payload: {
-                        id: nanoid,
-                        english,
-                        russian,
-                        transcription
-                    }
-                }
-            }
+       // addData: {
+           // reducer(state, action) {
+           //     state.words.push(action.payload)
+          //  }, prepare(english, russian, transcription) {
+          //      return {
+             //       payload: {
+             //           id: nanoid,
+              //          english,
+              //          russian,
+              //          transcription
+               //     }
+             //   }
+          //  }
 
-        },
+       // },
     },
     extraReducers(builder) {
         builder
