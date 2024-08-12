@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom';
-import Button from "../Button/Button.jsx";
 import styles from './Header.module.scss';
 import logo from '../../assets/logo.png'
 
