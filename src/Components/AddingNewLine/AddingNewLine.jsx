@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import styles from './AddingNewLine.module.scss';
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
+import { useSelector, useDispatch } from "react-redux";
+import { selectAllWords, getWordsError, getWordsStatus, fetchWords, addNewWords } from '../../Words/wordsSlice.js';
 
 
 
-export default function AddingNewLine({ wordDictionary, setWordDictionary}) {
+export default function AddingNewLine() {
+    const dispatch = useDispatch();
+    const words = useSelector(selectAllWords);
+    const wordsStatus = useSelector(getWordsStatus);
+  
+    useEffect(() => {
+        if (wordsStatus === 'idle') {
+            dispatch(fetchWords())
+        }
+    }, [dispatch, wordsStatus]);
 
     const [inputWord, setInputWord] = useState("");
     const [inputTranscription, setInputTranscription] = useState("");
@@ -20,34 +31,30 @@ export default function AddingNewLine({ wordDictionary, setWordDictionary}) {
 
     const [formValid, setFormValid] = useState(false);
     const [wordRed, setWordRed] = useState(false);
-    const [transcriptionRed, setTranscriptionRed]=useState(false);
+    const [transcriptionRed, setTranscriptionRed] = useState(false);
     const [translationRed, setTranslationRed] = useState(false);
-    
-        console.log(wordRed);
-    
-   useEffect(()=>{
-    if(wordError=='Слово некорректно!'){
-        setWordRed(true)
-    }else{
-        setWordRed(false)
-    }
-
-    if(transcriptionError=='Транскрипция слова некорректна!'){
-        setTranscriptionRed(true)
-    }else{
-        setTranscriptionRed(false)
-    }
-
-    if(translationError=='Перевод слова некорректен, используйте русские буквы!'){
-        setTranslationRed(true)
-    }else{
-        setTranslationRed(false)
-    }
 
 
-   },[wordError, transcriptionError, translationError])
 
+    useEffect(() => {
+        if (wordError == 'Слово некорректно!') {
+            setWordRed(true)
+        } else {
+            setWordRed(false)
+        }
 
+        if (transcriptionError == 'Транскрипция слова некорректна!') {
+            setTranscriptionRed(true)
+        } else {
+            setTranscriptionRed(false)
+        }
+
+        if (translationError == 'Перевод слова некорректен, используйте русские буквы!') {
+            setTranslationRed(true)
+        } else {
+            setTranslationRed(false)
+        }
+    }, [wordError, transcriptionError, translationError])
 
     useEffect(() => {
         if (wordError || transcriptionError || translationError) {
@@ -56,7 +63,6 @@ export default function AddingNewLine({ wordDictionary, setWordDictionary}) {
             setFormValid(true);
         }
     }, [wordError, transcriptionError, translationError])
-
 
     const handlerBlur = (e) => {
         switch (e.target.name) {
@@ -74,13 +80,11 @@ export default function AddingNewLine({ wordDictionary, setWordDictionary}) {
         }
     }
 
-    //Делаем проверку английского слова
     const wordHandler = (e) => {
         setInputWord(e.target.value);
-        const reg = /(?:\s|^)[A-Za-z0-9\-\.\_]+(?:\s|$)/; //анл слово
+        const reg = /(?:\s|^)[A-Za-z\-\.\_]+(?:\s|$)/; 
 
-
-        if (!reg.test(String(e.target.value).trim(e.target.value))) {
+        if (!reg.test(String(e.target.value))) {
             setWordError('Слово некорректно!');
 
         } else {
@@ -89,17 +93,11 @@ export default function AddingNewLine({ wordDictionary, setWordDictionary}) {
         }
     }
 
-    //Делаем проверку транскрипции
-
     const transcriptionHandler = (e) => {
         setInputTranscription(e.target.value);
-        //Регулярное выражение для слова из англ букв,
-        //для транскрипции пока не найдено. 
-        //Включено только что слово должно быть в квадратных скобках,хотя работает и без них
-        const regEng = /(?:\[|^)[A-Za-z0-9\-\.\_]+(?:\]|$)/;
-      
+        const regTranscript = /\[+[A-Za-zʌ:iɪʊueəɜɔæaɑɒʃθŋðʒɛˈ(r)ɡrɑːs]+\]/;
 
-        if (!regEng.test(String(e.target.value).trim(e.target.value))) {
+        if (!regTranscript.test(String(e.target.value))) {
             setTranscriptionError('Транскрипция слова некорректна!');
 
         } else {
@@ -107,13 +105,11 @@ export default function AddingNewLine({ wordDictionary, setWordDictionary}) {
         }
     }
 
-
-    //Делаем проверку русского слова
     const translationHandler = (e) => {
         setInputTranslation(e.target.value);
-        const regTranslation = /(?:\s|^)[а-яА-Я0-9\-\.\_]+(?:\s|$)/;//русское слово
+        const regTranslation = /(?:\s|^)[а-яА-Я\-\.\_]+(?:\s|$)/;//русское слово
 
-        if (!regTranslation.test(String(e.target.value).trim(e.target.value))) {
+        if (!regTranslation.test(String(e.target.value))) {
             setTranslationError('Перевод слова некорректен, используйте русские буквы!');
 
         } else {
@@ -121,32 +117,79 @@ export default function AddingNewLine({ wordDictionary, setWordDictionary}) {
         }
     }
 
-    //добавим новую строчку в слова
     const AddNewRow = () => {
-        const id = wordDictionary.length ? wordDictionary[wordDictionary.length - 1].id + 1 : 1;
-        const itemRowtoAdd = { word: inputWord, transcription: inputTranscription, translation: inputTranslation, id };
-        const updatedList = [...wordDictionary, itemRowtoAdd];
-        setWordDictionary(updatedList);
+        const amountOfWords = words.length - 1;
+        const lastWord = words[amountOfWords];
+        const newId = Number(lastWord.id) + 1;
+
+        const newWords = {
+            id: String(newId),
+            english: inputWord,
+            transcription: inputTranscription,
+            russian: inputTranslation,
+            tags: '',
+            tags_json: '',
+        }
+
+        try {
+            dispatch(addNewWords(newWords)).unwrap();
+        } catch (err) {
+            console.log("Failed to save the post: ", err);
+        }
+
         setInputWord("");
         setInputTranscription("");
         setInputTranslation("");
-        console.log("слово: "+inputWord,"транскрипция: "+ inputTranscription,"перевод: "+inputTranslation);
+        console.log(newWords);
     }
-
-  
-
 
     return (
         <>
             <h3 className={styles.title}>Добавить новое слово</h3>
             <div className={styles.tr}>
-                <div className={styles.td}><input className={wordRed?styles.inputWordError:styles.inputWord} type='text' onChange={(e) => wordHandler(e)} onBlur={(e) => handlerBlur(e)} name="word" placeholder="word" value={inputWord} /></div>
-                <div className={styles.td}><input className={transcriptionRed? styles.inputWordError:styles.inputWord} type='text' onChange={(e) => transcriptionHandler(e)} onBlur={(e) => handlerBlur(e)} name="transcription" placeholder="transcription" value={inputTranscription} /></div>
-                <div className={styles.td}><input className={translationRed? styles.inputWordError:styles.inputWord} type='text' onChange={(e) => translationHandler(e)} onBlur={(e) => handlerBlur(e)} name="translation" placeholder="translation" value={inputTranslation} /></div>
-                <div className={styles.td}> <button type='submit' disabled={!formValid} onClick={AddNewRow} className={formValid ? styles.btn : styles.btnDisabled} ><IoCheckmarkDoneCircle className={styles.doneImg} /></button></div>
+                <div className={styles.td}>
+                    <input
+                        className={wordRed ? styles.inputWordError : styles.inputWord}
+                        type='text'
+                        onChange={(e) => wordHandler(e)}
+                        onBlur={(e) => handlerBlur(e)}
+                        name="word"
+                        placeholder="word"
+                        value={inputWord}
+                    /></div>
+                <div className={styles.td}>
+                    <input
+                        className={transcriptionRed ?
+                            styles.inputWordError : styles.inputWord}
+                        type='text'
+                        onChange={(e) => transcriptionHandler(e)}
+                        onBlur={(e) => handlerBlur(e)}
+                        name="transcription"
+                        placeholder="transcription"
+                        value={inputTranscription}
+                    /></div>
+                <div className={styles.td}>
+                    <input
+                        className={translationRed ? styles.inputWordError : styles.inputWord}
+                        type='text'
+                        onChange={(e) => translationHandler(e)}
+                        onBlur={(e) => handlerBlur(e)}
+                        name="translation"
+                        placeholder="translation"
+                        value={inputTranslation}
+                    /></div>
+                <div className={styles.td}>
+                    <button
+                        type='submit'
+                        disabled={!formValid}
+                        onClick={AddNewRow}
+                        className={formValid ? styles.btn : styles.btnDisabled} >
+                        <IoCheckmarkDoneCircle
+                            className={styles.doneImg}
+                        />
+                    </button></div>
 
             </div>
-
             <div className={styles.blockError}>
                 {wordCondition && <div className={styles.error}>{wordError}</div>}
                 {transcriptionCondition && <div className={styles.error}>{transcriptionError}</div>}

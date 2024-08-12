@@ -1,36 +1,42 @@
 import styles from './Table.module.scss'
 import AddingNewLine from '../AddingNewLine/AddingNewLine.jsx'
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import {  selectAllWords, getWordsError, getWordsStatus, fetchWords } from '../../Words/wordsSlice.js';
 import Row from "../Row/Row.jsx";
 
 
-export default function Table({ wordDictionary, setWordDictionary }) {
+export default function Table() {
 
-    //сохраняем отредактированные слова
-    function handleSave({ id, wordSt, transcriptionWord, translationWord }) {
+    const dispatch = useDispatch();
+    const words = useSelector(selectAllWords)
+    const wordsStatus = useSelector(getWordsStatus);
+    const error = useSelector(getWordsError);
 
-        const newDataWords = wordDictionary.map((item) => {
-            if (item.id == id) {
-                item.word = wordSt;
-                item.transcription = transcriptionWord;
-                item.translation = translationWord;
-                return item;
-            }
-            return item;
-        })
-        setWordDictionary(newDataWords);
+
+    useEffect(() => {
+        if (wordsStatus === 'idle') {
+            dispatch(fetchWords())
+        }
+    }, [dispatch, wordsStatus]);
+
+    let loading;
+
+    if (wordsStatus === 'loading') {
+       loading = <div className={styles.loading}>Идет загрузка слов....</div>
     }
-    //Удаляем строку со словами
-    const handleRemove = (id) => {
-        setWordDictionary((prevWords) =>
-            prevWords.filter((word) => word.id !== id)
-        )
+    else if (wordsStatus === 'succeeded') {
+        console.log('succeeded');  
     }
-
+    else if (wordsStatus === 'failed') {
+        return <div>{error}...</div>
+    }
 
     return (
         <div className={styles.container}>
-            <AddingNewLine wordDictionary={wordDictionary} setWordDictionary={setWordDictionary} />
+            <AddingNewLine />
             <div className={styles.wordList}>
+            {loading}
                 <div className={styles.wrapper}>
                     {/* начало таблицы */}
                     <div className={styles.tableWrapper}>
@@ -45,9 +51,8 @@ export default function Table({ wordDictionary, setWordDictionary }) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {wordDictionary.map((item) => {
-                                        return <Row wordDictionary={item} key={item.id} handleSave={handleSave} handleRemove={handleRemove} />;
-                                    })}
+                                
+                                    {words.map(item => { return <Row words={item} key={item.id} /> })}
                                 </tbody>
                             </table>
                         </div>

@@ -1,118 +1,189 @@
 import { useEffect, useState } from 'react';
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
+import { useDispatch } from 'react-redux';
+import { updateWords, deleteWords } from '../../Words/wordsSlice';
 import styles from './Row.module.scss';
 
-export default function Row({ wordDictionary, handleRemove, handleSave }) {
-    //получаем пропсы
-    const { id, word, transcription, translation } = wordDictionary;
+export default function Row({ words }) {
 
+    const { id, english, transcription, russian } = words;
+    const dispatch = useDispatch();
 
     const [openEditing, setOpenEditing] = useState(false);
     const [wordSt, setWordSt] = useState("");
     const [transcriptionWord, setTranscription] = useState("");
     const [translationWord, setTranslationWord] = useState("");
 
-    //открываем редактирование
+
+    const [valid, setValid] = useState(false);
+
+    const [wordError, setWordError] = useState("");
+    const [transcriptionError, setTranscriptionError] = useState("");
+    const [translationError, setTranslationError] = useState('');
+
+    const [wordRed, setWordRed] = useState(false);
+    const [transcriptionRed, setTranscriptionRed] = useState(false);
+    const [translationRed, setTranslationRed] = useState(false);
+
+    
     const handleEditing = (id) => {
-        setOpenEditing(id);
+        setOpenEditing(true);
     }
 
-    //при изменении слов они будут меняться в состояниях
     useEffect(() => {
-        setWordSt(word);
+        setWordSt(english);
         setTranscription(transcription);
-        setTranslationWord(translation);
-    }, [wordDictionary])
+        setTranslationWord(russian);
+    }, [words])
 
-    //Проверяем инпуты на наличие в них слов,и чтобы совпадали с регулярным выражением
-    const regEng = /(?:\s|^)[A-Za-z0-9\-\.\_]+(?:\s|$)/;;
-    const regTranslation = /(?:\s|^)[а-яА-Я0-9\-\.\_]+(?:\s|$)/;//русское слово
+    useEffect(() => {
+        if (wordError || translationError || translationError) {
+            setValid(false);
 
-    const wordError = [];
-    const translationError = [];
+        } else {
+            setValid(true);
+        }
+    }, [wordError, translationError, translationError])
 
-    if (!regEng.test(String(wordSt))) {
-        wordError.push('Введите слово английскими буквами');
 
+
+    const wordHandler = (e) => {
+        setWordSt(e.target.value);
+        const reg = /(?:\s|^)[A-Za-z\-\.\_]+(?:\s|$)/; 
+
+        if (!reg.test(String(e.target.value))) {
+            setWordError('Слово введено некорректно!');
+            setWordRed(true)
+
+        } else {
+            setWordError('');
+            setWordRed(false)
+        }
     }
 
-    if (!translationWord.match(regTranslation)) {
-        translationError.push('Введите слово русскими буквами');
+    const transcriptionHandler = (e) => {
+        setTranscription(e.target.value);
+        const regTranscript = /\[+[A-Za-zʌ:iɪʊueəɜɔæaɑɒʃθŋðʒɛˈ(r)ɡrɑːs]+\]/;
 
+        if (!regTranscript.test(String(e.target.value))) {
+            setTranscriptionError('Слово введено некорректно!');
+            setTranscriptionRed(true)
+
+        } else {
+            setTranscriptionError('');
+            setTranscriptionRed(false)
+        }
     }
 
+    const translationHandler = (e) => {
+        setTranslationWord(e.target.value);
+        const regTranslation = /(?:\s|^)[а-яА-Я,\-\.\_]+(?:\s|$)/;
 
+        if (!regTranslation.test(String(e.target.value))) {
+            setTranslationError('Слово введено некорректно!');
+            setTranslationRed(true);
 
+        } else {
+            setTranslationError('');
+            setTranslationRed(false);
+        }
+    }
+
+    const handleSave = (id) => {
+
+        try {
+            dispatch(updateWords({
+                id: id,
+                english: wordSt,
+                transcription: transcriptionWord,
+                russian: translationWord,
+                tags: '',
+                tags_json: '',
+            })).unwrap();
+
+        } catch (err) {
+            console.log('Words didnt update: ', err);
+        }
+    }
+
+    const handleDelete = (id) => {
+        console.log(id);
+        try{
+            dispatch(deleteWords({id: id})).unwrap();
+        }catch(error){
+            console.log('Failed to delete words: ', error);
+            
+        }
+
+    }
 
     return (
         <>
             <tr className={styles.tr} >
                 <td className={styles.td}>
-                    <span className={styles.error}>{wordError}</span> {/*Здесь появится инф-я об ошибке*/}
+                    <span className={styles.error}>{wordError}</span> 
                     {openEditing ? (
                         <input
-                            className={styles.inputWord}
+                            className={wordRed ? styles.inputWordError : styles.inputWord}
                             type="text"
                             value={wordSt}
-                            onChange={(e) => setWordSt(e.target.value)}
+                            onChange={(e) => wordHandler(e)}
                         />
                     ) : (
-                        word
+                        english
                     )}
                 </td>
                 <td className={styles.td}>
+                    <span className={styles.error}>{transcriptionError}</span>
                     {openEditing ? (
                         <input
                             type="text"
-                            className={styles.inputWord}
+                            className={transcriptionRed ? styles.inputWordError : styles.inputWord}
                             value={transcriptionWord}
-                            onChange={(e) => setTranscription(e.target.value)}
+                            onChange={(e) => transcriptionHandler(e)}
                         />
                     ) : (
                         transcription
                     )}
                 </td>
                 <td className={styles.td}>
-                    <span className={styles.error}>{translationError}</span> {/*Здесь появится инф-я об ошибке*/}
+                    <span className={styles.error}>{translationError}</span> 
                     {openEditing ? (
                         <input
                             type="text"
-                            className={styles.inputWord}
+                            className={translationRed ? styles.inputWordError : styles.inputWord}
                             value={translationWord}
-                            onChange={(e) => setTranslationWord(e.target.value)}
+                            onChange={(e) => translationHandler(e)}
                         />
                     ) : (
-                        translation
+                        russian
                     )}
                 </td>
                 <td className={styles.td}>
                     {openEditing ? (
-                        <button className={styles.btnSave}
+                        <button 
+                            disabled={!valid}
+                            className={valid ? styles.btnSave : styles.btnDisabled}
                             onClick={() => {
-                                setOpenEditing(false),
-                                    handleSave({
-                                        id,
-                                        wordSt,
-                                        transcriptionWord,
-                                        translationWord
-                                    })
+                                setOpenEditing(false)
                             }
                             }>
                             <IoCheckmarkDoneCircle
                                 className={styles.doneImg}
+                                onClick={() => handleSave(id)}
                             />
                         </button>
                     ) : (
                         <BsFillPencilFill
                             onClick={() => handleEditing(id)}
-                            className={styles.editingImg} disabled
+                            className={styles.editingImg} 
                         />
                     )}
 
                     <BsFillTrashFill
-                        onClick={() => handleRemove(id)}
                         className={styles.removeImg}
+                        onClick={() => handleDelete(id)}
                     />
                 </td>
             </tr>
