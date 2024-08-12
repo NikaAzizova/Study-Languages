@@ -4,7 +4,7 @@ import arrowLeft from '../../assets/arrowLeft.png'
 import arrowRight from '../../assets/arrowRight.png'
 import styles from './Slider.module.scss'
 import { useSelector, useDispatch } from "react-redux";
-import { setData, selectAllWords, getWordsError, getWordsStatus, fetchWords } from '../../Words/wordsSlice.js';
+import { selectAllWords, getWordsError, getWordsStatus, fetchWords } from '../../Words/wordsSlice.js';
 
 export default function Slider() {
     const dispatch = useDispatch();

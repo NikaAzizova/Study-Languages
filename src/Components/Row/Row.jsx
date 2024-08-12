@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
+import { useDispatch } from 'react-redux';
+import { updateWords, deleteWords } from '../../Words/wordsSlice';
 import styles from './Row.module.scss';
 
 export default function Row({ words }) {
-    
+
     const { id, english, transcription, russian } = words;
+    const dispatch = useDispatch();
+
     const [openEditing, setOpenEditing] = useState(false);
     const [wordSt, setWordSt] = useState("");
     const [transcriptionWord, setTranscription] = useState("");
@@ -22,20 +26,17 @@ export default function Row({ words }) {
     const [transcriptionRed, setTranscriptionRed] = useState(false);
     const [translationRed, setTranslationRed] = useState(false);
 
-    //открываем редактирование
+    
     const handleEditing = (id) => {
-        setOpenEditing(id);
-
+        setOpenEditing(true);
     }
 
-    //при изменении слов они будут меняться в состояниях
     useEffect(() => {
         setWordSt(english);
         setTranscription(transcription);
         setTranslationWord(russian);
     }, [words])
 
-    //проверка чтобы сделать кнопку заблокированной в случае ошибок в введеных словах
     useEffect(() => {
         if (wordError || translationError || translationError) {
             setValid(false);
@@ -46,10 +47,10 @@ export default function Row({ words }) {
     }, [wordError, translationError, translationError])
 
 
-    //Делаем проверку английского слова
+
     const wordHandler = (e) => {
         setWordSt(e.target.value);
-        const reg = /(?:\s|^)[A-Za-z\-\.\_]+(?:\s|$)/; //анл слово
+        const reg = /(?:\s|^)[A-Za-z\-\.\_]+(?:\s|$)/; 
 
         if (!reg.test(String(e.target.value))) {
             setWordError('Слово введено некорректно!');
@@ -61,7 +62,6 @@ export default function Row({ words }) {
         }
     }
 
-    //делаем проверку транскрипции
     const transcriptionHandler = (e) => {
         setTranscription(e.target.value);
         const regTranscript = /\[+[A-Za-zʌ:iɪʊueəɜɔæaɑɒʃθŋðʒɛˈ(r)ɡrɑːs]+\]/;
@@ -76,10 +76,9 @@ export default function Row({ words }) {
         }
     }
 
-    //Делаем проверку русского слова
     const translationHandler = (e) => {
         setTranslationWord(e.target.value);
-        const regTranslation = /(?:\s|^)[а-яА-Я\-\.\_]+(?:\s|$)/;//русское слово
+        const regTranslation = /(?:\s|^)[а-яА-Я,\-\.\_]+(?:\s|$)/;
 
         if (!regTranslation.test(String(e.target.value))) {
             setTranslationError('Слово введено некорректно!');
@@ -91,11 +90,39 @@ export default function Row({ words }) {
         }
     }
 
+    const handleSave = (id) => {
+
+        try {
+            dispatch(updateWords({
+                id: id,
+                english: wordSt,
+                transcription: transcriptionWord,
+                russian: translationWord,
+                tags: '',
+                tags_json: '',
+            })).unwrap();
+
+        } catch (err) {
+            console.log('Words didnt update: ', err);
+        }
+    }
+
+    const handleDelete = (id) => {
+        console.log(id);
+        try{
+            dispatch(deleteWords({id: id})).unwrap();
+        }catch(error){
+            console.log('Failed to delete words: ', error);
+            
+        }
+
+    }
+
     return (
         <>
             <tr className={styles.tr} >
                 <td className={styles.td}>
-                    <span className={styles.error}>{wordError}</span> {/*Здесь появится инф-я об ошибке*/}
+                    <span className={styles.error}>{wordError}</span> 
                     {openEditing ? (
                         <input
                             className={wordRed ? styles.inputWordError : styles.inputWord}
@@ -121,7 +148,7 @@ export default function Row({ words }) {
                     )}
                 </td>
                 <td className={styles.td}>
-                    <span className={styles.error}>{translationError}</span> {/*Здесь появится инф-я об ошибке*/}
+                    <span className={styles.error}>{translationError}</span> 
                     {openEditing ? (
                         <input
                             type="text"
@@ -135,7 +162,7 @@ export default function Row({ words }) {
                 </td>
                 <td className={styles.td}>
                     {openEditing ? (
-                        <button //className={styles.btnSave}
+                        <button 
                             disabled={!valid}
                             className={valid ? styles.btnSave : styles.btnDisabled}
                             onClick={() => {
@@ -144,17 +171,19 @@ export default function Row({ words }) {
                             }>
                             <IoCheckmarkDoneCircle
                                 className={styles.doneImg}
+                                onClick={() => handleSave(id)}
                             />
                         </button>
                     ) : (
                         <BsFillPencilFill
                             onClick={() => handleEditing(id)}
-                            className={styles.editingImg} disabled
+                            className={styles.editingImg} 
                         />
                     )}
 
                     <BsFillTrashFill
                         className={styles.removeImg}
+                        onClick={() => handleDelete(id)}
                     />
                 </td>
             </tr>

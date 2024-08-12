@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import styles from './Card.module.scss'
-import { useSelector, useDispatch } from "react-redux";
-import { setData, selectAllWords, getWordsError, getWordsStatus, fetchWords } from '../../Words/wordsSlice.js';
+
 
 
 

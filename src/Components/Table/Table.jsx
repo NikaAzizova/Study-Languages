@@ -2,7 +2,7 @@ import styles from './Table.module.scss'
 import AddingNewLine from '../AddingNewLine/AddingNewLine.jsx'
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { setData, selectAllWords, getWordsError, getWordsStatus, fetchWords } from '../../Words/wordsSlice.js';
+import {  selectAllWords, getWordsError, getWordsStatus, fetchWords } from '../../Words/wordsSlice.js';
 import Row from "../Row/Row.jsx";
 
 
@@ -12,6 +12,7 @@ export default function Table() {
     const words = useSelector(selectAllWords)
     const wordsStatus = useSelector(getWordsStatus);
     const error = useSelector(getWordsError);
+
 
     useEffect(() => {
         if (wordsStatus === 'idle') {
