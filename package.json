@@ -2,7 +2,7 @@
   "name": "study-languages",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://nikaazizova.github.io/english-study",
+  "homepage": "https://nikaazizova.github.io/words-progect",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
