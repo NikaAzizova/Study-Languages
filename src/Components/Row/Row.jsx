@@ -112,10 +112,8 @@ export default function Row({ words }) {
         try{
             dispatch(deleteWords({id: id})).unwrap();
         }catch(error){
-            console.log('Failed to delete words: ', error);
-            
+            console.log('Failed to delete words: ', error);  
         }
-
     }
 
     return (
@@ -187,12 +185,6 @@ export default function Row({ words }) {
                     />
                 </td>
             </tr>
-
-
-
-
-
-
         </>
     )
 }

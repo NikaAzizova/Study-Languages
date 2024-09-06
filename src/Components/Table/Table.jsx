@@ -38,7 +38,6 @@ export default function Table() {
             <div className={styles.wordList}>
             {loading}
                 <div className={styles.wrapper}>
-                    {/* начало таблицы */}
                     <div className={styles.tableWrapper}>
                         <div className={styles.firstLine}>
                             <table className={styles.table}>

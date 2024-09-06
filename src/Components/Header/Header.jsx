@@ -8,7 +8,7 @@ export default function Header() {
         <header className={styles.header}>
             <div className={styles.wrapper}>
 
-                <nav className={styles.nav}>
+                <nav className={styles.navLogo}>
                     <NavLink to='/'><img className={styles.logo} src={logo} alt="logo" /></NavLink>
                 </nav>
             </div>

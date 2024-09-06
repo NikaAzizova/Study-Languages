@@ -6,21 +6,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
-
     animation: rotateCard 2s linear;
 
     .wrapper {
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         width: 278px;
         height: 378px;
         margin-bottom: 40px;
-        padding: 2vw;
         border: 2px solid $cardColor;
         border-radius: 10px;
-        //box-shadow: 5px 5px 5px 5px $boxShadowTable;
+      
 
         .word {
             padding-top: 10px;
@@ -42,16 +40,16 @@
         }
 
         .div {
+
             display: block;
             text-align: center;
             width: 141px;
             height: 43px;
-            //padding: 1vh 1vh 1vh 1vh;
             background-color: $backgroundColorButton;
             border: 1px solid $whiteColor;
             border-radius: 10px;
 
-            //font-family: $fontFamilyButton;
+            font-family: $fontFamilyButton;
             @include fontText;
             font-weight: 400;
             font-size: 20px;
@@ -71,8 +69,6 @@
             opacity: 0.8;
         }
     }
-
-
 
     .learnedAmount {
         display: block;

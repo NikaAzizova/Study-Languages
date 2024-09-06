@@ -11,7 +11,7 @@ function App() {
     <>
       <div className={styles.container}>
         <Header />
-        <main>
+        <main className={styles.mainContainer}>
           <Routes>
             <Route path='/' element={<HomePage />} />
             <Route path='/game' element={<GamePage/>} />

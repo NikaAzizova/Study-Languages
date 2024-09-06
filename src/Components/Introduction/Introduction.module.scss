@@ -1,13 +1,11 @@
 @import '../../styles/template.module.scss';
 
 .container {
-    //max-width: 100%;
     width: 80%;
     min-height:81.1vh;
     margin: 0 auto;
     padding-top: 40px;
     .blockTitle {
-        //font-size: 24px;
 
         .title {
             margin-bottom: 20px;
@@ -49,8 +47,6 @@
                 @media screen and (max-width: 680px){
                     font-size: 17px;
                 }
-               
-
             }
         }
 

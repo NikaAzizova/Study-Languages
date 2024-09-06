@@ -3,14 +3,12 @@
 .header {
   max-width: 100%;
   width: 100%;
-  //margin-bottom: 30px;
   display: flex;
   justify-content: space-between;
   background-color: $backgroundColorHeaderFooter;
 
   .nav {
     padding-right: 5vw;
-    min-height: 10vh;
     display: flex;
     align-items: center;
     flex-basis: 30%;
@@ -19,8 +17,6 @@
     @media screen and (max-width: 980px) {
       gap: 15px;
     }
-    
-
 
     .navLink {
       text-decoration: none;
@@ -33,26 +29,36 @@
         font-size: 20px;
       }
     }
-
-    .logo {
-      max-width: 79px;
-      @media screen and (max-width: 435px){
-        max-width: 60px;           
-
-     }
-    }
   }
-
 }
 
 .wrapper {
   max-width: 100%;
-  min-height: 11vh;
+  height: 100px;
   display: flex;
   align-items: center;
   padding: 15px 5% 20px 5%;
   display: flex;
-  //flex-basis: 60%;
   background-color: $backgroundColorHeaderFooter;
 
+  .navLogo {
+    padding-right: 5vw;
+    display: flex;
+    align-items: center;
+    flex-basis: 30%;
+    justify-content: space-around;
+
+    @media screen and (max-width: 980px) {
+      gap: 15px;
+    }
+
+    .logo {
+      max-width: 50px;
+
+      @media screen and (max-width: 435px) {
+        max-width: 40px;
+
+      }
+    }
+  }
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './AddingNewLine.module.scss';
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
-import { selectAllWords, getWordsError, getWordsStatus, fetchWords, addNewWords } from '../../Words/wordsSlice.js';
+import { selectAllWords, getWordsStatus, fetchWords, addNewWords } from '../../Words/wordsSlice.js';
 
 
 
@@ -10,7 +10,7 @@ export default function AddingNewLine() {
     const dispatch = useDispatch();
     const words = useSelector(selectAllWords);
     const wordsStatus = useSelector(getWordsStatus);
-  
+
     useEffect(() => {
         if (wordsStatus === 'idle') {
             dispatch(fetchWords())
@@ -82,7 +82,7 @@ export default function AddingNewLine() {
 
     const wordHandler = (e) => {
         setInputWord(e.target.value);
-        const reg = /(?:\s|^)[A-Za-z\-\.\_]+(?:\s|$)/; 
+        const reg = /(?:\s|^)[A-Za-z\-\.\_]+(?:\s|$)/;
 
         if (!reg.test(String(e.target.value))) {
             setWordError('Слово некорректно!');
@@ -131,6 +131,7 @@ export default function AddingNewLine() {
             tags_json: '',
         }
 
+
         try {
             dispatch(addNewWords(newWords)).unwrap();
         } catch (err) {
@@ -140,60 +141,63 @@ export default function AddingNewLine() {
         setInputWord("");
         setInputTranscription("");
         setInputTranslation("");
+        setFormValid(false);
         console.log(newWords);
     }
 
     return (
         <>
             <h3 className={styles.title}>Добавить новое слово</h3>
-            <div className={styles.tr}>
-                <div className={styles.td}>
-                    <input
-                        className={wordRed ? styles.inputWordError : styles.inputWord}
-                        type='text'
-                        onChange={(e) => wordHandler(e)}
-                        onBlur={(e) => handlerBlur(e)}
-                        name="word"
-                        placeholder="word"
-                        value={inputWord}
-                    /></div>
-                <div className={styles.td}>
-                    <input
-                        className={transcriptionRed ?
-                            styles.inputWordError : styles.inputWord}
-                        type='text'
-                        onChange={(e) => transcriptionHandler(e)}
-                        onBlur={(e) => handlerBlur(e)}
-                        name="transcription"
-                        placeholder="transcription"
-                        value={inputTranscription}
-                    /></div>
-                <div className={styles.td}>
-                    <input
-                        className={translationRed ? styles.inputWordError : styles.inputWord}
-                        type='text'
-                        onChange={(e) => translationHandler(e)}
-                        onBlur={(e) => handlerBlur(e)}
-                        name="translation"
-                        placeholder="translation"
-                        value={inputTranslation}
-                    /></div>
-                <div className={styles.td}>
-                    <button
-                        type='submit'
-                        disabled={!formValid}
-                        onClick={AddNewRow}
-                        className={formValid ? styles.btn : styles.btnDisabled} >
-                        <IoCheckmarkDoneCircle
-                            className={styles.doneImg}
-                        />
-                    </button></div>
+            <div className={styles.wrapper}>
+                <div className={styles.tr}>
+                    <div className={styles.td}>
+                        <input
+                            className={wordRed ? styles.inputWordError : styles.inputWord}
+                            type='text'
+                            onChange={(e) => wordHandler(e)}
+                            onBlur={(e) => handlerBlur(e)}
+                            name="word"
+                            placeholder="word"
+                            value={inputWord}
+                        /></div>
+                    <div className={styles.td}>
+                        <input
+                            className={transcriptionRed ?
+                                styles.inputWordError : styles.inputWord}
+                            type='text'
+                            onChange={(e) => transcriptionHandler(e)}
+                            onBlur={(e) => handlerBlur(e)}
+                            name="transcription"
+                            placeholder="transcription"
+                            value={inputTranscription}
+                        /></div>
+                    <div className={styles.td}>
+                        <input
+                            className={translationRed ? styles.inputWordError : styles.inputWord}
+                            type='text'
+                            onChange={(e) => translationHandler(e)}
+                            onBlur={(e) => handlerBlur(e)}
+                            name="translation"
+                            placeholder="translation"
+                            value={inputTranslation}
+                        /></div>
+                    <div className={styles.td}>
+                        <button
+                            type='submit'
+                            disabled={!formValid}
+                            onClick={AddNewRow}
+                            className={formValid ? styles.btn : styles.btnDisabled} >
+                            <IoCheckmarkDoneCircle
+                                className={styles.doneImg}
+                            />
+                        </button></div>
 
-            </div>
-            <div className={styles.blockError}>
-                {wordCondition && <div className={styles.error}>{wordError}</div>}
-                {transcriptionCondition && <div className={styles.error}>{transcriptionError}</div>}
-                {translationCondition && <div className={styles.error}>{translationError}</div>}
+                </div>
+                <div className={styles.blockError}>
+                    {wordCondition && <div className={styles.error}>{wordError}</div>}
+                    {transcriptionCondition && <div className={styles.error}>{transcriptionError}</div>}
+                    {translationCondition && <div className={styles.error}>{translationError}</div>}
+                </div>
             </div>
         </>
 

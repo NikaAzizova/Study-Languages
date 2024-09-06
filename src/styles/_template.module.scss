@@ -1,8 +1,8 @@
-//imports of fonts
+
 @import url('https://fonts.googleapis.com/css2?family=Sedan&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
-//Colors
+
 $backgroundColorHeaderFooter: rgb(225, 113, 219);
 $whiteColor: white;
 $backgroundColorButton: rgb(206, 53, 198);
@@ -27,9 +27,9 @@ $BtnDisabledBackgColor: rgb(167, 164, 167);
 $BtnSaveBackg: rgb(214, 54, 212);
 $BtnSaveHover: rgba(239, 38, 165, 0.765);
 $BtnSaveHoverBoxShadow: rgb(150, 7, 97);
-//Fonts
-$fontFamilyButton: "Sedan", serif; //normal - 400
-$fontFamilyText: "Lora", serif; //normal/italic / weight с 400 по 700 
+
+$fontFamilyButton: "Sedan", serif; 
+$fontFamilyText: "Lora", serif;  
 
 @mixin fontText {
     font-family: $fontFamilyText;

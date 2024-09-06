@@ -63,18 +63,14 @@ export default function Slider() {
     return (
         <div className={styles.slider}>
             <div className={styles.sliderContainer}>
-                {/* изображение стрелочки влево*/}
                 <div className={styles.arrowLeft}>
                     <img onClick={prevSlider} className={styles.arrowLeftImg} src={arrowLeft} alt="стрелка влево" />
                 </div>
-                {/* сам компонент карточки*/}
                 <Card words={words[countSlider]} showWord={showWord} setShowWord={setShowWord} />
-                {/* изображение стрелочки вправо*/}
                 <div className={styles.arrowRight}>
                     <img onClick={nextSlider} className={styles.arrowRightImg} src={arrowRight} alt="стрелка в право" />
                 </div>
             </div>
-            {/*номер слова по порядку / общее количество слов*/}
             <div className={styles.amount}>
                 <div className={styles.wordAmount}>{countSlider + 1}/{words.length}</div>
             </div>
