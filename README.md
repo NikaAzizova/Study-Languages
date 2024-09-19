@@ -49,3 +49,19 @@
 <div><li>недопустимы названия из одной буквы</li></div>
 </div>
 <br>
+<hr>
+<p align="center">
+ <img width="700px" src="./public/ScreenShots/imgOne.png" alt="main page"/>
+</p>
+</div>
+
+<div>
+<p align="center">
+ <img width="700px" src="./public/ScreenShots/imgTwo.png" alt="cards page"/>
+</p>
+</div>
+<div>
+<p align="center">
+ <img width="700px" src="./public/ScreenShots/imgThree.png" alt="table page"/>
+</p>
+</div>
